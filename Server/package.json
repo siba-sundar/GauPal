@@ -1,0 +1,16 @@
+{
+  "name": "gaupal",
+  "version": "1.0.0",
+  "description": "\"# GauPal\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "firebase": "^11.4.0"
+  }
+}
