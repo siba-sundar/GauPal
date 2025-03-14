@@ -1,34 +1,27 @@
 {
-  "name": "frontend",
-  "license": "0BSD",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "gaupal",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@react-native-community/masked-view": "^0.1.11",
-    "@react-navigation/bottom-tabs": "^7.2.1",
-    "@react-navigation/native": "^7.0.15",
-    "@react-navigation/stack": "^7.1.2",
-    "axios": "^1.8.2",
-    "expo": "~52.0.37",
-    "expo-auth-session": "~6.0.3",
-    "expo-status-bar": "~2.0.1",
-    "firebase": "^11.4.0",
-    "react": "18.3.1",
-    "react-native": "^0.76.7",
-    "react-native-gesture-handler": "~2.20.2",
-    "react-native-reanimated": "~3.16.1",
-    "react-native-safe-area-context": "^5.3.0",
-    "react-native-screens": "^4.9.1",
-    "tailwind-react-native-classnames": "^3.0.1"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
-  },
-  "private": true
+    "@eslint/js": "^9.21.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.21.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "vite": "^6.2.0"
+  }
 }

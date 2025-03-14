@@ -140,3 +140,7 @@ dist
 
 # SvelteKit build / generate output
 .svelte-kit
+
+
+googleCloud-serviceAccountKey.json
+serviceAccountKey.json
