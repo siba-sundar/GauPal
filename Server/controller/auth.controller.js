@@ -2,24 +2,29 @@
 const admin = require('firebase-admin');
 const db = admin.firestore();
 
+
+
 exports.signup = async (req, res) => {
   const { email, password, fullName, phone, userType, address } = req.body;
   
   try {
-    // Create user in Firebase Auth
-    const userRecord = await admin.auth().createUser({
-      email,
-      password,
-      displayName: fullName
-    });
+    // Get the user ID from the Authorization header
+    const idToken = req.headers.authorization?.split('Bearer ')[1];
+    if (!idToken) {
+      return res.status(401).json({ message: 'No ID token provided' });
+    }
+    
+    // Verify the ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
     
     // Store additional user data in Firestore
-    await db.collection('users').doc(userRecord.uid).set({
-      uid: userRecord.uid,
+    await db.collection('users').doc(uid).set({
+      uid: uid,
       email,
       fullName,
       phone,
-      userType, // "farmer" or "buyer"
+      userType,
       address,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -29,14 +34,26 @@ exports.signup = async (req, res) => {
     });
     
     // Create custom claims for role-based auth
-    await admin.auth().setCustomUserClaims(userRecord.uid, { role: userType });
+    await admin.auth().setCustomUserClaims(uid, { role: userType });
+    console.log("done adding details")
     
     return res.status(201).json({
       message: 'User created successfully',
-      uid: userRecord.uid
+      uid: uid
     });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    console.error('Error creating user profile:', error);
+    
+    // Handle token verification errors
+    if (error.code === 'auth/id-token-expired' || error.code === 'auth/invalid-id-token') {
+      return res.status(401).json({ message: 'Invalid or expired authentication token' });
+    }
+    
+    // Generic error handling
+    return res.status(500).json({ 
+      message: 'An error occurred while creating the user profile',
+      error: error.message
+    });
   }
 };
 

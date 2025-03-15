@@ -36,6 +36,11 @@ const SignupPage = () => {
       return;
     }
     
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
@@ -50,7 +55,7 @@ const SignupPage = () => {
       const idToken = await userCredential.user.getIdToken();
       
       // Register user in your backend
-      await axios.post('/api/auth/signup', {
+      await axios.post('http://localhost:5000/gaupal/auth/signup', {
         email: formData.email,
         password: formData.password,
         fullName: formData.fullName,
@@ -68,15 +73,27 @@ const SignupPage = () => {
     } catch (error) {
       console.error('Signup error:', error);
       
-      // Handle specific Firebase errors
+      // Handle specific Firebase auth errors
       if (error.code === 'auth/email-already-in-use') {
-        setError('Email is already in use');
+        setError('This email is already registered. Please use a different email or try logging in.');
       } else if (error.code === 'auth/weak-password') {
-        setError('Password is too weak');
-      } else if (error.response && error.response.data && error.response.data.message) {
-        setError(error.response.data.message);
+        setError('Password is too weak. Please use a stronger password with at least 6 characters.');
+      } else if (error.code === 'auth/invalid-email') {
+        setError('The email address is not valid. Please check and try again.');
+      } else if (error.code === 'auth/network-request-failed') {
+        setError('Network error. Please check your internet connection and try again.');
+      } 
+      // Handle backend API errors
+      else if (error.response) {
+        if (error.response.status === 409) {
+          setError('User with this email already exists in our system.');
+        } else if (error.response.status === 400 && error.response.data.message) {
+          setError(error.response.data.message);
+        } else {
+          setError('An error occurred while registering your account. Please try again later.');
+        }
       } else {
-        setError('An error occurred during signup. Please try again.');
+        setError('An unexpected error occurred. Please try again or contact support if the problem persists.');
       }
     } finally {
       setIsLoading(false);
@@ -124,6 +141,7 @@ const SignupPage = () => {
               required
               minLength="6"
             />
+            <p className="text-xs text-gray-500 mt-1">Must be at least 6 characters long</p>
           </div>
           
           <div className="mb-4">
@@ -219,7 +237,7 @@ const SignupPage = () => {
           
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors"
             disabled={isLoading}
           >
             {isLoading ? 'Creating Account...' : 'Sign Up'}
