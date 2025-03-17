@@ -17,30 +17,37 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      // Step 1: Use Firebase Authentication to sign in
+      // First, authenticate with Firebase
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Step 2: Get the ID token from Firebase
       const idToken = await userCredential.user.getIdToken();
       
-      // Step 3: Send the ID token to your backend
-      const response = await axios.post('http://localhost:500/gaupal/auth/login', {
+      // Then, authenticate with your backend
+      const response = await axios.post('http://localhost:5000/gaupal/auth/login', {
         email,
         password,
         idToken
       });
       
-      // Step 4: Store user data in localStorage
+      // Store the complete user object in localStorage
       localStorage.setItem('user', JSON.stringify(response.data.user));
       
-      // Step 5: Redirect to the home page
-      navigate('/');
+      // Redirect based on user type
+      const userType = response.data.user.userType;
+      console.log("User type:", userType);
+      
+      if (userType === 'farmer') {
+        navigate('/farmer-dashboard');
+      } else if (userType === 'buyer') {
+        navigate('/buyer-dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       console.error('Login error:', err);
       
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
         setError('Invalid email or password');
-      } else if (err.response && err.response.data && err.response.data.message) {
+      } else if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
         setError('An error occurred during login. Please try again.');

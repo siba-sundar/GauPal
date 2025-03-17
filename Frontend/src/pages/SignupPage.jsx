@@ -55,7 +55,7 @@ const SignupPage = () => {
       const idToken = await userCredential.user.getIdToken();
       
       // Register user in your backend
-      await axios.post('http://localhost:5000/gaupal/auth/signup', {
+      const response = await axios.post('http://localhost:5000/gaupal/auth/signup', {
         email: formData.email,
         password: formData.password,
         fullName: formData.fullName,
@@ -68,8 +68,26 @@ const SignupPage = () => {
         }
       });
       
-      // Redirect to home page
-      navigate('/');
+      // Create a user object similar to what the login endpoint returns
+      const user = {
+        uid: userCredential.user.uid,
+        email: formData.email,
+        fullName: formData.fullName,
+        phone: formData.phone,
+        address: formData.address,
+        userType: formData.userType,
+        isVerified: false
+      };
+      
+      // Store complete user object in localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+      
+      // Redirect based on user type
+      if (formData.userType === 'farmer') {
+        navigate('/farmer-dashboard');
+      } else {
+        navigate('/buyer-dashboard');
+      }
     } catch (error) {
       console.error('Signup error:', error);
       
@@ -99,6 +117,7 @@ const SignupPage = () => {
       setIsLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

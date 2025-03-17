@@ -2,14 +2,13 @@ import React from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { AuthProvider } from '../utils/AuthProvider.jsx';
-
-// Import pages and components
-import LoginPage from './pages/login.jsx';
-import HomePage from './pages/HomePage.jsx';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/Login.jsx';
 import SignupPage from './pages/SignupPage.jsx';
-import ProfilePage from './pages/ProfilePage.jsx';
+import FarmerDashboard from './pages/FarmerDash.jsx';
+import BuyerDashboard from './pages/UserDash.jsx';
 import NotFoundPage from './pages/NoFound.jsx';
+import { AuthProvider, useAuth } from '../utils/AuthProvider.jsx';
 
 // Initialize Firebase - replace with your actual firebase config
 const firebaseConfig = {
@@ -22,9 +21,6 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-console.log(firebaseConfig)
-
-// Initialize Firebase
 initializeApp(firebaseConfig);
 
 // Protected route component
@@ -53,15 +49,31 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
-// Public route component - redirects to home if already authenticated
+// Public route component - redirects to appropriate dashboard if already authenticated
 const PublicRoute = ({ children }) => {
   const auth = getAuth();
   const [authChecked, setAuthChecked] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [userType, setUserType] = React.useState(null);
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsAuthenticated(!!user);
+      if (user) {
+        setIsAuthenticated(true);
+        // Check user type from localStorage
+        try {
+          const userString = localStorage.getItem('user');
+          if (userString) {
+            const userData = JSON.parse(userString);
+            setUserType(userData.userType);
+          }
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      } else {
+        setIsAuthenticated(false);
+        setUserType(null);
+      }
       setAuthChecked(true);
     });
 
@@ -76,7 +88,60 @@ const PublicRoute = ({ children }) => {
     );
   }
 
-  return isAuthenticated ? <Navigate to="/" replace /> : children;
+  if (isAuthenticated) {
+    if (userType === 'farmer') {
+      return <Navigate to="/farmer-dashboard" replace />;
+    } else if (userType === 'buyer') {
+      return <Navigate to="/buyer-dashboard" replace />;
+    } else {
+      return <Navigate to="/" replace />;
+    }
+  }
+
+  return children;
+};
+
+// User type-based route component
+const UserTypeRoute = ({ children, allowedType }) => {
+  const [loading, setLoading] = React.useState(true);
+  const [authorized, setAuthorized] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkUserType = () => {
+      try {
+        const userString = localStorage.getItem('user');
+        if (!userString) {
+          setAuthorized(false);
+          setLoading(false);
+          return;
+        }
+
+        const user = JSON.parse(userString);
+        if (user.userType === allowedType) {
+          setAuthorized(true);
+        } else {
+          setAuthorized(false);
+        }
+      } catch (error) {
+        console.error("Error checking user type:", error);
+        setAuthorized(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkUserType();
+  }, [allowedType]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  return authorized ? children : <Navigate to="/" replace />;
 };
 
 // Create router
@@ -106,10 +171,22 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/profile",
+    path: "/farmer-dashboard",
     element: (
       <ProtectedRoute>
-        <ProfilePage />
+        <UserTypeRoute allowedType="farmer">
+          <FarmerDashboard />
+        </UserTypeRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/buyer-dashboard",
+    element: (
+      <ProtectedRoute>
+        <UserTypeRoute allowedType="buyer">
+          <BuyerDashboard />
+        </UserTypeRoute>
       </ProtectedRoute>
     ),
   },

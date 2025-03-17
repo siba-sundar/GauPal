@@ -12,17 +12,17 @@ const LogoutButton = ({ className }) => {
     setIsLoggingOut(true);
     
     try {
-      // Get the current user
+      // Get the current authenticated user
       const user = auth.currentUser;
       
       if (user) {
-        // Get the ID token for the API request
+        // Get the Firebase ID token for the API request
         const idToken = await user.getIdToken();
         
         // Call the backend logout endpoint
-        await axios.post('/api/auth/logout', {}, {
+        await axios.post('http://localhost:5000/gaupal/auth/logout', {}, {
           headers: {
-            Authorization: `Bearer ${idToken}`
+            Authorization: `Bearer ${idToken}` // Include token in the Authorization header
           }
         });
         
@@ -33,7 +33,7 @@ const LogoutButton = ({ className }) => {
       // Clear user data from localStorage
       localStorage.removeItem('user');
       
-      // Redirect to login page
+      // Redirect to login page after logout
       navigate('/login');
     } catch (error) {
       console.error('Logout error:', error);

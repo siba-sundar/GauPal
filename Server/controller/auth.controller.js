@@ -2,8 +2,6 @@
 const admin = require('firebase-admin');
 const db = admin.firestore();
 
-
-
 exports.signup = async (req, res) => {
   const { email, password, fullName, phone, userType, address } = req.body;
   
@@ -91,6 +89,7 @@ exports.login = async (req, res) => {
       lastLogin: admin.firestore.FieldValue.serverTimestamp()
     });
     
+  
     return res.status(200).json({
       user: {
         uid: decodedToken.uid,
@@ -135,7 +134,15 @@ exports.logout = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    const userId = req.user.uid; // From auth middleware
+    const idToken = req.headers.authorization?.split('Bearer ')[1];
+    if (!idToken) {
+      return res.status(401).json({ message: 'No ID token provided' });
+    }
+    
+    // Verify the ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    
     const userDoc = await db.collection('users').doc(userId).get();
     
     if (!userDoc.exists) {
@@ -143,19 +150,35 @@ exports.getProfile = async (req, res) => {
     }
     
     const userData = userDoc.data();
-    delete userData.password; // Don't send sensitive info
     
-    return res.status(200).json(userData);
+    return res.status(200).json({
+      uid: userId,
+      email: userData.email,
+      fullName: userData.fullName,
+      userType: userData.userType,
+      phone: userData.phone,
+      address: userData.address,
+      isVerified: userData.isVerified
+    });
   } catch (error) {
+    console.error('Profile error:', error);
     return res.status(500).json({ message: error.message });
   }
 };
 
 exports.updateProfile = async (req, res) => {
-  const userId = req.user.uid; // From auth middleware
-  const { fullName, phone, address } = req.body;
-  
   try {
+    const idToken = req.headers.authorization?.split('Bearer ')[1];
+    if (!idToken) {
+      return res.status(401).json({ message: 'No ID token provided' });
+    }
+    
+    // Verify the ID token
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const userId = decodedToken.uid;
+    
+    const { fullName, phone, address } = req.body;
+    
     await db.collection('users').doc(userId).update({
       fullName,
       phone,
@@ -165,6 +188,7 @@ exports.updateProfile = async (req, res) => {
     
     return res.status(200).json({ message: 'Profile updated successfully' });
   } catch (error) {
+    console.error('Update profile error:', error);
     return res.status(500).json({ message: error.message });
   }
 };

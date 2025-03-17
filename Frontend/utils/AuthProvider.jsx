@@ -17,13 +17,20 @@ export const AuthProvider = ({ children }) => {
       if (firebaseUser) {
         try {
           // Get user profile from your backend or use cached data
-          const cachedUser = localStorage.getItem('user');
-          if (cachedUser) {
-            setCurrentUser(JSON.parse(cachedUser));
+          const cachedUserString = localStorage.getItem('user');
+          if (cachedUserString) {
+            try {
+              const cachedUser = JSON.parse(cachedUserString);
+              setCurrentUser(cachedUser);
+            } catch (error) {
+              console.error("Error parsing cached user:", error);
+              localStorage.removeItem('user');
+              setCurrentUser(null);
+            }
           } else {
             // If no cached data, get from API
             const idToken = await firebaseUser.getIdToken();
-            const response = await axios.get('/api/auth/profile', {
+            const response = await axios.get('http://localhost:5000/gaupal/auth/profile', {
               headers: {
                 Authorization: `Bearer ${idToken}`
               }
@@ -48,9 +55,14 @@ export const AuthProvider = ({ children }) => {
   // Update auth header for all axios requests
   useEffect(() => {
     const updateAuthHeader = async () => {
-      if (currentUser && auth.currentUser) {
-        const token = await auth.currentUser.getIdToken();
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      if (auth.currentUser) {
+        try {
+          const token = await auth.currentUser.getIdToken();
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        } catch (error) {
+          console.error("Error getting ID token:", error);
+          delete axios.defaults.headers.common['Authorization'];
+        }
       } else {
         delete axios.defaults.headers.common['Authorization'];
       }
@@ -61,7 +73,10 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
-    loading
+    loading,
+    getUserType: () => {
+      return currentUser?.userType || null;
+    }
   };
 
   return (
