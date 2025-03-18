@@ -8,7 +8,8 @@ const {
   getAllProducts
 } = require('../controller/product.controller.js');
 const { verifyToken, isFarmer } = require('../middleware/auth.middleware.js');
-const { uploadProductImage } = require('../controller/upload.controller.js');
+// const { uploadProductImage } = require('../controller/upload.controller.js');
+const uploadImage  = require('../utils/upload.utils.js')
 
 const router = express.Router();
 
@@ -17,9 +18,9 @@ router.get('/', getAllProducts);
 router.get('/:productId', getProduct);
 
 // Protected routes
-router.post('/', verifyToken, isFarmer, createProduct);
+router.post('/add-product', verifyToken, isFarmer, uploadImage.productImages, createProduct);
 router.put('/:productId', verifyToken, isFarmer, updateProduct);
 router.delete('/:productId', verifyToken, isFarmer, deleteProduct);
-router.post('/:productId/upload', verifyToken, isFarmer, uploadProductImage);
+// router.post('/:productId/upload', verifyToken, isFarmer, uploadProductImage);
 
 module.exports = router;

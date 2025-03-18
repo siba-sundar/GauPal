@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LogoutButton from "../components/Logout.jsx"
 
 const FarmerDashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -43,7 +44,7 @@ const FarmerDashboard = () => {
           <div className="flex items-center space-x-4">
             <span>Welcome, {userData?.fullName}</span>
             <Link to="/profile" className="hover:underline">Profile</Link>
-            <button className="bg-white text-green-600 px-3 py-1 rounded">Logout</button>
+            <button className="bg-white text-green-600 px-3 py-1 rounded"><LogoutButton/></button>
           </div>
         </div>
       </nav>

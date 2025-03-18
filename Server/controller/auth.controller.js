@@ -71,6 +71,8 @@ exports.login = async (req, res) => {
     if (!idToken) {
       return res.status(400).json({ message: 'ID token is required' });
     }
+
+    console.log("idToken",idToken)
     
     // Verify the ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);

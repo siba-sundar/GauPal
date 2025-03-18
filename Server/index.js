@@ -3,11 +3,11 @@ const express = require('express');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const dotenv = require('dotenv');
+const env = require('dotenv');
 const path = require('path');
 
 // Load environment variables
-dotenv.config();
+env.config();
 
 // Initialize Express App
 const app = express();
@@ -20,7 +20,14 @@ const serviceAccount = require('./serviceAccountKey.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
+  storageBucket: process.env.GOOGLE_CLOUD_STORAGE_BUCKET // Add this line
 });
+
+// Now you can get the storage bucket reference
+const bucket = admin.storage().bucket();
+
+// Make bucket available to the app
+app.locals.bucket = bucket;
 
 // Import all routes
 const authRoutes = require('./Routes/auth.routes.js');
@@ -35,7 +42,7 @@ const uploadRoutes = require('./Routes/upload.routes.js');
 
 // Use routes
 app.use('/gaupal/auth', authRoutes);
-app.use('/api/products', productRoutes);
+app.use('/gaupal/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);

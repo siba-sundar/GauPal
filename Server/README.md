@@ -1,137 +1,92 @@
-"# GauPal" 
-/**
- * Firestore Database Collections Structure
- * 
- * Here's the recommended collection structure for your farmers marketplace:
- */
+# GauPal Authentication Service
 
-// users Collection
-{
-  uid: String, // Firebase Auth UID
-  email: String,
-  fullName: String,
-  phone: String,
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    zip: String,
-    country: String,
-    coordinates: {
-      latitude: Number,
-      longitude: Number
-    }
-  },
-  userType: String, // "farmer" or "buyer"
-  createdAt: Timestamp,
-  updatedAt: Timestamp,
-  profilePicture: String, // URL to storage
-  isVerified: Boolean,
-  rating: Number,
-  ratingCount: Number
-}
+This project provides an authentication service using Firebase for user signup, login, profile management, and logout functionalities. The service is built using Express.js and Firebase Admin SDK.
 
-// products Collection
-{
-  productId: String,
-  sellerId: String, // Reference to user UID
-  name: String,
-  description: String,
-  category: String, // e.g., "vegetables", "fruits", "dairy"
-  price: Number,
-  unit: String, // e.g., "kg", "lb", "dozen"
-  quantity: Number, // available quantity
-  images: Array, // URLs to storage
-  organic: Boolean,
-  harvestDate: Timestamp,
-  expiryDate: Timestamp,
-  createdAt: Timestamp,
-  updatedAt: Timestamp,
-  location: {
-    address: String,
-    coordinates: {
-      latitude: Number,
-      longitude: Number
-    }
-  },
-  isAvailable: Boolean
-}
+## Features
 
-// orders Collection
-{
-  orderId: String,
-  buyerId: String, // Reference to user UID
-  sellerId: String, // Reference to user UID
-  items: [
-    {
-      productId: String,
-      name: String,
-      quantity: Number,
-      price: Number,
-      subtotal: Number
-    }
-  ],
-  totalAmount: Number,
-  status: String, // "pending", "confirmed", "processing", "shipped", "delivered", "cancelled"
-  paymentStatus: String, // "pending", "completed", "failed", "refunded"
-  paymentMethod: String,
-  paymentId: String, // For payment gateway reference
-  shippingAddress: {
-    street: String,
-    city: String,
-    state: String,
-    zip: String,
-    country: String
-  },
-  createdAt: Timestamp,
-  updatedAt: Timestamp,
-  deliveryDate: Timestamp,
-  notes: String
-}
+- User Signup
+- User Login
+- User Logout
+- Get User Profile
+- Update User Profile
 
-// reviews Collection
-{
-  reviewId: String,
-  productId: String,
-  orderId: String,
-  reviewerId: String, // User who wrote the review
-  sellerId: String, // User being reviewed
-  rating: Number, // 1-5
-  comment: String,
-  images: Array, // URLs to storage
-  createdAt: Timestamp,
-  updatedAt: Timestamp,
-  isVerified: Boolean
-}
+## Setup
 
-// messages Collection
-{
-  messageId: String,
-  conversationId: String,
-  senderId: String,
-  receiverId: String,
-  message: String,
-  createdAt: Timestamp,
-  isRead: Boolean
-}
+### Prerequisites
 
-// conversations Collection
-{
-  conversationId: String,
-  participants: Array, // User UIDs
-  lastMessage: String,
-  lastMessageTime: Timestamp,
-  unreadCount: Number
-}
+- Node.js
+- Firebase Admin SDK
+- Firebase Project
 
-// notifications Collection
-{
-  notificationId: String,
-  userId: String, // Recipient
-  type: String, // "order", "message", "review", etc.
-  title: String,
-  message: String,
-  referenceId: String, // ID of related entity (order, product, etc.)
-  createdAt: Timestamp,
-  isRead: Boolean
-}
+### Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/GauPal.git
+    cd GauPal
+    ```
+
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+
+3. Set up Firebase Admin SDK:
+    - Obtain your Firebase service account key file from the Firebase Console.
+    - Save the key file in the project directory and name it `serviceAccountKey.json`.
+
+4. Create a `.env` file in the project root and add your Firebase project configuration:
+    ```env
+    FIREBASE_DATABASE_URL= your-database-url
+    ```
+
+## Usage
+
+### Running the Server
+
+Start the server using the following command:
+```sh
+npm start
+```
+
+The server will run on `http://localhost:5000` unless mentioned.
+
+### API Endpoints for Authentication 
+
+#### Public Routes
+
+- **POST gaupal/auth/signup**: User signup
+- **POST gaupal/auth/login**: User login
+
+#### Protected Routes
+
+- **POST gaupal/auth/logout**: User logout (requires token)
+- **GET gaupal/auth/profile**: Get user profile (requires token)
+- **PUT gaupal/auth/profile**: Update user profile (requires token)
+
+### Example Requests
+
+#### Signup
+```sh
+curl -X POST http://localhost:5000/gaupal/auth/signup -H "Content-Type: application/json" -d '{
+  "email": "user@example.com",
+  "password": "password123",
+  "fullName": "John Doe",
+  "phone": "1234567890",
+  "userType": "user",
+  "address": "123 Main St"
+}'
+```
+
+#### Login
+```sh
+curl -X POST http://localhost:3000gaupal/auth/login -H "Content-Type: application/json" -d '{
+  "email": "user@example.com",
+  "password": "password123",
+  "idToken": "your-id-token"
+}'
+```
+
+## License
+
+This project is licensed under the MIT License.

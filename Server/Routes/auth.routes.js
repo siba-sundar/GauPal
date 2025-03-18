@@ -3,6 +3,7 @@ const express = require('express');
 const { signup, login, getProfile, updateProfile, logout } = require('../controller/auth.controller.js');
 const { verifyToken } = require('../middleware/auth.middleware.js');
 
+
 const router = express.Router();
 
 // Public routes
