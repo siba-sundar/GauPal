@@ -10,6 +10,8 @@ import BuyerDashboard from './pages/UserDash.jsx';
 import NotFoundPage from './pages/NoFound.jsx';
 import { AuthProvider, useAuth } from '../utils/AuthProvider.jsx';
 
+import CowManage from "./pages/CowManage.jsx"
+
 // Initialize Firebase - replace with your actual firebase config
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -173,9 +175,20 @@ const router = createBrowserRouter([
   {
     path: "/farmer-dashboard",
     element: (
-      <ProtectedRoute>
+     
         <UserTypeRoute allowedType="farmer">
           <FarmerDashboard />
+        </UserTypeRoute>
+    
+    ),
+  },
+
+  {
+    path:"/manage-cow",
+    element:(
+      <ProtectedRoute>
+        <UserTypeRoute allowedType="farmer">
+          <CowManage/>
         </UserTypeRoute>
       </ProtectedRoute>
     ),
