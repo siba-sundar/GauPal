@@ -9,6 +9,8 @@ import Register from './pages/auth/Register';
 import KYC from './pages/auth/KYC';
 import ProductList from './pages/products/ProductList';
 import ComingSoon from './pages/ComingSoon';
+import GoogleMapViewUser from './pages/user/GoogleMapView';
+import GoogleMapViewFarmer from './pages/farmer/GoogleMapView';
 
 const App = () => (
   <Provider store={store}>
@@ -25,6 +27,8 @@ const App = () => (
         <Route path="/register" element={<Register />} />
         <Route path="/kyc" element={<KYC />} />
         <Route path="/coming-soon" element={<ComingSoon />} />
+        <Route path="/nearby-ngos" element={<GoogleMapViewUser />} />
+        <Route path="/find-clinics" element={<GoogleMapViewFarmer />} />
       </Routes>
     </Router>
   </Provider>
