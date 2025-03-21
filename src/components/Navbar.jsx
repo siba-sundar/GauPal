@@ -64,6 +64,14 @@ const Navbar = () => {
               Marketplace
             </Link>
 
+            <Link to="/nearby-ngos" className="text-gray-700 hover:text-green-600">
+              Find NGOs
+            </Link>
+
+            <Link to="/find-clinics" className="text-gray-700 hover:text-green-600">
+              Find Clinics
+            </Link>
+
             {user?.type === 'farmer' && (
               <Link to="/farmer-dashboard" className="text-gray-700 hover:text-green-600">
                 Farmer Dashboard
