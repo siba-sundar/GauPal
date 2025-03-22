@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+mobilenet-model*/
+temp/
+.env
+googleCloud-serviceAccountKey.json
+serviceAccountKey.json
