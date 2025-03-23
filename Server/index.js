@@ -39,6 +39,7 @@ const notificationRoutes = require('./Routes/notification.routes.js');
 const dashboardRoutes = require('./Routes/dashboard.routes.js');
 const searchRoutes = require('./Routes/search.routes.js');
 const uploadRoutes = require('./Routes/upload.routes.js');
+const { chatWithGemini, getGreeting }  = require('./ChatBot/geminiAiService.js');
 
 // Use routes
 app.use('/gaupal/auth', authRoutes);
@@ -50,11 +51,15 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/upload', uploadRoutes);
+app.post('/gauguru/chat', chatWithGemini);
+app.get('/gauguru/greeting', getGreeting);
 
 // Root route
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Farmers Marketplace API' });
 });
+
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

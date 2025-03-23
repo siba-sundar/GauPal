@@ -36,9 +36,9 @@ const LoginPage = () => {
       console.log("User type:", userType);
       
       if (userType === 'farmer') {
-        navigate('/farmer-dashboard');
+        navigate('/farmer/dashboard');
       } else if (userType === 'buyer') {
-        navigate('/buyer-dashboard');
+        navigate('/buyer/dashboard');
       } else {
         navigate('/');
       }

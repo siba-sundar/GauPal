@@ -10,7 +10,21 @@ import BuyerDashboard from './pages/UserDash.jsx';
 import NotFoundPage from './pages/NoFound.jsx';
 import { AuthProvider, useAuth } from '../utils/AuthProvider.jsx';
 
+
+// common imports 
+import ChatBot from "./components/ChatBot.jsx"
+import Landing from './pages/Landing.jsx';
+// farmer imports 
+import Farmer from "./layouts/Farmer.jsx"
+import FarmerDash from './components/farmer/FarmerDash.jsx';
 import CowManage from "./pages/CowManage.jsx"
+import FarmerMaps from "./components/farmer/GoogleMapView.jsx"
+
+
+
+// buyer imports 
+import User from "./layouts/User.jsx"
+import UserDash from './components/user/UserDash.jsx';
 
 // Initialize Firebase - replace with your actual firebase config
 const firebaseConfig = {
@@ -92,9 +106,9 @@ const PublicRoute = ({ children }) => {
 
   if (isAuthenticated) {
     if (userType === 'farmer') {
-      return <Navigate to="/farmer-dashboard" replace />;
+      return <Navigate to="/farmer/dashboard" replace />;
     } else if (userType === 'buyer') {
-      return <Navigate to="/buyer-dashboard" replace />;
+      return <Navigate to="/buyer/dashboard" replace />;
     } else {
       return <Navigate to="/" replace />;
     }
@@ -152,7 +166,7 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <ProtectedRoute>
-        <HomePage />
+        <Landing />
       </ProtectedRoute>
     ),
   },
@@ -173,28 +187,36 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/farmer-dashboard",
+    path: "/farmer",
     element: (
-     
-        <UserTypeRoute allowedType="farmer">
-          <FarmerDashboard />
-        </UserTypeRoute>
-    
-    ),
-  },
-
-  {
-    path:"/manage-cow",
-    element:(
       <ProtectedRoute>
         <UserTypeRoute allowedType="farmer">
-          <CowManage/>
+          <Farmer />
         </UserTypeRoute>
       </ProtectedRoute>
     ),
+    children:[
+      {
+        path: "dashboard",
+        element:<FarmerDash />            
+      },
+      {
+        path:"manage-cow",
+        element:<CowManage />
+      },
+      {
+        path:"maps",
+        element:<FarmerMaps />
+      },
+      {
+        path:"chat",
+        element:<ChatBot />
+      }
+    ]
   },
+
   {
-    path: "/buyer-dashboard",
+    path: "/buyer",
     element: (
       <ProtectedRoute>
         <UserTypeRoute allowedType="buyer">
@@ -202,6 +224,17 @@ const router = createBrowserRouter([
         </UserTypeRoute>
       </ProtectedRoute>
     ),
+
+    children:[
+      {
+        path:"dashboard",
+        element:<UserDash />
+      },
+      {
+        path:"chat",
+        element:<ChatBot />
+      }
+    ]
   },
   {
     path: "*",

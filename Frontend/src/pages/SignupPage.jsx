@@ -84,9 +84,9 @@ const SignupPage = () => {
       
       // Redirect based on user type
       if (formData.userType === 'farmer') {
-        navigate('/farmer-dashboard');
+        navigate('/farmer/dashboard');
       } else {
-        navigate('/buyer-dashboard');
+        navigate('/buyer/dashboard');
       }
     } catch (error) {
       console.error('Signup error:', error);
