@@ -14,11 +14,17 @@ import { AuthProvider, useAuth } from '../utils/AuthProvider.jsx';
 // common imports 
 import ChatBot from "./components/ChatBot.jsx"
 import Landing from './pages/Landing.jsx';
+
+
 // farmer imports 
+
 import Farmer from "./layouts/Farmer.jsx"
 import FarmerDash from './components/farmer/FarmerDash.jsx';
 import CowManage from "./pages/CowManage.jsx"
 import FarmerMaps from "./components/farmer/GoogleMapView.jsx"
+import AddProducts from "./components/farmer/AddProduct.jsx"
+import ProductList from "./components/farmer/ProductList.jsx"
+import ProductDetails from './components/farmer/ProductDetail.jsx';
 
 
 
@@ -211,6 +217,18 @@ const router = createBrowserRouter([
       {
         path:"chat",
         element:<ChatBot />
+      },
+      {
+        path:"add-product",
+        element:<AddProducts />
+      },
+      {
+        path:"products",
+        element:<ProductList />
+      },
+      {
+        path:"product/:productId",
+        element:<ProductDetails />
       }
     ]
   },

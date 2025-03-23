@@ -41,6 +41,10 @@ const searchRoutes = require('./Routes/search.routes.js');
 const uploadRoutes = require('./Routes/upload.routes.js');
 const { chatWithGemini, getGreeting }  = require('./ChatBot/geminiAiService.js');
 
+
+// farmer specific imports 
+const farmerRoutes = require('./Routes/farmer.routes.js');
+
 // Use routes
 app.use('/gaupal/auth', authRoutes);
 app.use('/gaupal/products', productRoutes);
@@ -53,6 +57,10 @@ app.use('/api/search', searchRoutes);
 app.use('/api/upload', uploadRoutes);
 app.post('/gauguru/chat', chatWithGemini);
 app.get('/gauguru/greeting', getGreeting);
+
+
+// farmer specific routes
+app.use('/gaupal/farmer', farmerRoutes);
 
 // Root route
 app.get('/', (req, res) => {

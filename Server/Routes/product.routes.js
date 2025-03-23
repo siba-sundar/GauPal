@@ -17,10 +17,5 @@ const router = express.Router();
 router.get('/', getAllProducts);
 router.get('/:productId', getProduct);
 
-// Protected routes
-router.post('/add-product', verifyToken, isFarmer, uploadImage.productImages, createProduct);
-router.put('/:productId', verifyToken, isFarmer, updateProduct);
-router.delete('/:productId', verifyToken, isFarmer, deleteProduct);
-// router.post('/:productId/upload', verifyToken, isFarmer, uploadProductImage);
 
 module.exports = router;

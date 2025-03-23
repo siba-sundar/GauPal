@@ -1,35 +1,112 @@
-import React from 'react';
-import { Bell } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { 
+  Bell, 
+  Menu, 
+  X, 
+  Home,
+  ClipboardList,
+  ShoppingBag,
+  Settings,
+  User
+} from 'lucide-react';
 import LogoutButton from '../Logout.jsx';
 
-const Navbar = () => {
+const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navItems = [
+    { icon: Home, label: 'Dashboard', path: '/farmer/dashboard' },
+    { icon: Home, label: 'Manage Cows', path: '/manage/cow' },
+    { icon: ClipboardList, label: 'Orders', path: '/orders' },
+    { icon: ShoppingBag, label: 'Products', path: '/products' },
+    { icon: User, label: 'Add Products', path: '/farmer/add-product' },
+    { icon: User, label: 'Products List', path: '/farmer/products' }
+  ];
+
+  const toggleSidebar = () => setIsOpen(!isOpen);
+
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-        <div className="flex items-center">
-          <span className="h-8 w-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold mr-3">
-            G
-          </span>
-          <h1 className="text-xl font-bold text-gray-800">GauPalak Dashboard</h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <button className="p-2 rounded-full text-gray-500 hover:bg-gray-100">
+    <>
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-white shadow-sm sticky top-0 z-20 px-4 py-2">
+        <div className="flex items-center justify-between">
+          <button onClick={toggleSidebar} className="p-2 rounded-lg hover:bg-gray-100">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+          <span className="text-xl font-bold text-gray-800">GauPalak</span>
+          <button className="p-2 rounded-lg hover:bg-gray-100">
             <Bell size={20} />
           </button>
+        </div>
+      </div>
 
-          <div>
-            <LogoutButton />
+      {/* Sidebar */}
+      <div className={`
+        fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        lg:relative lg:transform-none
+      `}>
+        {/* Logo */}
+        <div className="p-4 border-b">
+          <div className="flex items-center">
+            <span className="h-8 w-8 rounded-full bg-green-600 flex items-center justify-center text-white font-bold mr-3">
+              G
+            </span>
+            <h1 className="text-xl font-bold text-gray-800">GauPalak</h1>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-800 font-bold">
-              A
+        </div>
+
+        {/* Navigation Items */}
+        <nav className="p-4 flex-1">
+          <div className="space-y-2">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                to={item.path}
+                className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-600"
+              >
+                <item.icon size={20} />
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+        </nav>
+
+        {/* User Section */}
+        <div className="border-t p-4">
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-800 font-bold">
+                A
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-gray-700">Anand Singh</p>
+                <p className="text-xs text-gray-500">Farmer</p>
+              </div>
             </div>
-            <span className="hidden sm:inline-block text-sm font-medium text-gray-700">Anand Singh</span>
+            
+            <Link to="/settings" className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-600">
+              <Settings size={20} />
+              <span>Settings</span>
+            </Link>
+            
+            <div className="px-3">
+              <LogoutButton />
+            </div>
           </div>
         </div>
       </div>
-    </header>
+
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
+          onClick={toggleSidebar}
+        />
+      )}
+    </>
   );
 };
 
-export default Navbar;
+export default Sidebar;

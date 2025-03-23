@@ -44,6 +44,7 @@ exports.isFarmer = (req, res, next) => {
     return res.status(403).json({ message: 'Access denied. Farmers only.' });
   }
   
+  console.log('User is a farmer');
   next();
 };
 
