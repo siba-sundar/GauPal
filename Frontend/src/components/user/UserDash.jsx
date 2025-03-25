@@ -1,36 +1,99 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight, Star, Heart, Info, MapPin, BookOpen } from 'lucide-react';
+import axios from 'axios';
+import { getAuth } from 'firebase/auth';
+
+
+import BreedDetailsModal from '../common/BreedDetailModal.jsx';
 
 const UserDashboard = () => {
-  // Sample data
-  const trendingProducts = [
+
+  const [featuredBreeds, setFeaturedBreeds] = useState([]);
+  const [selectedBreed, setSelectedBreed] = useState(null);
+
+  const [trendingProducts, setTrendingProducts] = useState([
     { id: 1, name: 'Organic A2 Milk', price: '₹80/liter', rating: 4.8, seller: 'Anand Organic Farm', image: '/api/placeholder/100/100', category: 'Dairy' },
     { id: 2, name: 'Desi Ghee', price: '₹700/kg', rating: 4.9, seller: 'Kamdhenu Farms', image: '/api/placeholder/100/100', category: 'Dairy' },
     { id: 3, name: 'Cow Dung Cakes', price: '₹10/piece', rating: 4.5, seller: 'Gau Seva Kendra', image: '/api/placeholder/100/100', category: 'Fertilizer' },
     { id: 4, name: 'Panchagavya', price: '₹300/liter', rating: 4.7, seller: 'Vedic Farms', image: '/api/placeholder/100/100', category: 'Ayurveda' },
-  ];
+  ]);
 
-  const featuredBreeds = [
-    { id: 1, name: 'Gir', origin: 'Gujarat', uses: 'Milk production, Agricultural work', image: '/api/placeholder/200/150' },
-    { id: 2, name: 'Sahiwal', origin: 'Punjab', uses: 'High milk yield, Heat resistance', image: '/api/placeholder/200/150' },
-    { id: 3, name: 'Red Sindhi', origin: 'Sindh', uses: 'Dairy production, Tropical adaptation', image: '/api/placeholder/200/150' },
-  ];
 
-  const topSellers = [
+
+  const [topSellers, setTopSellers] = useState([
     { id: 1, name: 'Anand Organic Farm', location: 'Mathura, UP', rating: 4.8, products: 24, image: '/api/placeholder/80/80' },
     { id: 2, name: 'Kamdhenu Farms', location: 'Jaipur, Rajasthan', rating: 4.9, products: 18, image: '/api/placeholder/80/80' },
     { id: 3, name: 'Gau Seva Kendra', location: 'Ahmedabad, Gujarat', rating: 4.7, products: 32, image: '/api/placeholder/80/80' },
-  ];
+  ]);
 
-  const articles = [
-    { id: 1, title: 'Benefits of A2 Milk from Indigenous Cows', summary: 'Learn about the health benefits of A2 milk from indigenous cow breeds compared to regular milk.', image: '/api/placeholder/300/200' },
-    { id: 2, title: 'How to Identify Pure Desi Ghee', summary: 'Simple tests to identify authentic desi ghee made from indigenous cow milk.', image: '/api/placeholder/300/200' },
-  ];
+  const [articles, setArticles] = useState([]);
+
+  const auth = getAuth();
+
+  useEffect(() => {
+    // Fetch random articles
+    const fetchRandomArticles = async () => {
+      try {
+        const user = auth.currentUser;
+
+        if (!user) {
+          setError('Error: Unable to authenticate. Please log in again.');
+          setLoading(false);
+          return;
+        }
+
+        const token = await user.getIdToken();
+
+
+        const response = await axios.get('http://localhost:5000/gaupal/article/random/article', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setArticles(response.data.data);
+      } catch (error) {
+        console.error('Error fetching random articles:', error);
+      }
+    };
+
+
+
+
+    const fetchRandomBreeds = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          console.error('User not authenticated');
+          return;
+        }
+
+        const token = await user.getIdToken();
+
+        const response = await axios.get('http://localhost:5000/gaupal/article/random/breed', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        setFeaturedBreeds(response.data.data);
+      } catch (error) {
+        console.error('Error fetching random breeds:', error);
+      }
+    };
+
+    fetchRandomArticles();
+    fetchRandomBreeds();
+
+  }, []);
+
+
+  const handleLearnMore = (breed) => {
+    setSelectedBreed(breed);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
-
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
@@ -121,7 +184,6 @@ const UserDashboard = () => {
 
         {/* Featured Breeds & Farm Locations */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          {/* Featured Breeds */}
           <div className="lg:col-span-2">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Featured Cow Breeds</h2>
@@ -131,15 +193,26 @@ const UserDashboard = () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {featuredBreeds.map((breed) => (
-                <div key={breed.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300">
+                <div
+                  key={breed.id}
+                  className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
+                >
                   <div className="h-32 bg-gray-200">
-                    <img src={breed.image} alt={breed.name} className="w-full h-full object-cover" />
+                    <img
+                      src={breed.introduction.image.url}
+                      alt={breed.breed}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-medium text-gray-800 mb-1">{breed.name}</h3>
-                    <p className="text-gray-500 text-sm mb-2">Origin: {breed.origin}</p>
-                    <p className="text-gray-600 text-sm">{breed.uses}</p>
-                    <button className="w-full mt-3 bg-green-50 text-green-600 font-medium py-2 rounded-md hover:bg-green-100 transition-colors duration-300 flex items-center justify-center">
+                    <h3 className="font-medium text-gray-800 mb-1 capitalize">{breed.breed}</h3>
+                    <p className="text-gray-500 text-sm mb-2">
+                      {breed.introduction.content.slice(0, 100)}...
+                    </p>
+                    <button
+                      onClick={() => handleLearnMore(breed)}
+                      className="w-full mt-3 bg-green-50 text-green-600 font-medium py-2 rounded-md hover:bg-green-100 transition-colors duration-300 flex items-center justify-center"
+                    >
                       <Info size={16} className="mr-2" /> Learn More
                     </button>
                   </div>
@@ -147,6 +220,14 @@ const UserDashboard = () => {
               ))}
             </div>
           </div>
+
+          {/* Breed Details Modal */}
+          {selectedBreed && (
+            <BreedDetailsModal
+              breed={selectedBreed}
+              onClose={() => setSelectedBreed(null)}
+            />
+          )}
 
           {/* Top Sellers */}
           <div>
@@ -195,14 +276,17 @@ const UserDashboard = () => {
             {articles.map((article) => (
               <div key={article.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col md:flex-row">
                 <div className="md:w-1/3 h-48 md:h-auto bg-gray-200">
-                  <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+                  <img src={article.introduction.image.url} alt={article.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-4 md:w-2/3">
                   <h3 className="font-medium text-gray-800 mb-2">{article.title}</h3>
                   <p className="text-gray-600 text-sm mb-4">{article.summary}</p>
-                  <button className="text-green-600 font-medium text-sm hover:text-green-700 flex items-center">
+                  <Link
+                    to={`/article/${article.slug}`}
+                    className="text-green-600 font-medium text-sm hover:text-green-700 flex items-center"
+                  >
                     Read More <ChevronRight size={16} className="ml-1" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}

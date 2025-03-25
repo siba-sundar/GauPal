@@ -17,11 +17,11 @@ const Sidebar = () => {
 
   const navItems = [
     { icon: Home, label: 'Dashboard', path: '/farmer/dashboard' },
-    { icon: Home, label: 'Manage Cows', path: '/manage/cow' },
+    { icon: Home, label: 'Manage Cows', path: '/farmer/manage-cow' },
     { icon: ClipboardList, label: 'Orders', path: '/orders' },
     { icon: ShoppingBag, label: 'Products', path: '/products' },
     { icon: User, label: 'Add Products', path: '/farmer/add-product' },
-    { icon: User, label: 'Products List', path: '/farmer/products' }
+    { icon: ShoppingBag, label: 'Products List', path: '/farmer/products' }
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
