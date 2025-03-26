@@ -103,7 +103,7 @@ const ProductList = () => {
 
   // Handle product click
   const handleProductClick = (productId) => {
-    navigate(`/product/${productId}`);
+    navigate(`/buyer/product/${productId}`);
   };
 
   // Render product card
