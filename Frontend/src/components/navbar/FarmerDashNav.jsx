@@ -21,7 +21,8 @@ const Sidebar = () => {
   const navItems = [
     { icon: Home, label: 'Dashboard', path: '/farmer/dashboard' },
     { icon: Home, label: 'Manage Cows', path: '/farmer/manage-cow' },
-    { icon: ClipboardList, label: 'Orders', path: '/orders' }
+    { icon: ClipboardList, label: 'Orders', path: '/orders' },
+    { icon: ClipboardList, label: 'Predict Disease', path: '/farmer/disease' }
   ];
 
   const productItems = [

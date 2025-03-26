@@ -42,12 +42,13 @@ export default function Home() {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1500595046743-cd271d694d30?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80)',
+            backgroundImage: 'url(https://images.pexels.com/photos/30010790/pexels-photo-30010790/free-photo-of-group-of-cows-in-rustic-farm-setting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

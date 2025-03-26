@@ -37,9 +37,10 @@ const reviewRoutes = require('./Routes/review.routes.js');
 const messageRoutes = require('./Routes/message.routes.js');
 const notificationRoutes = require('./Routes/notification.routes.js');
 const dashboardRoutes = require('./Routes/dashboard.routes.js');
-const searchRoutes = require('./Routes/search.routes.js');
 const uploadRoutes = require('./Routes/upload.routes.js');
 const articles = require('./Routes/article.routes.js');
+const cattle = require('./Routes/cattle.routes.js');
+const disease = require('./Routes/disease.routes.js')
 const { chatWithGemini, getGreeting }  = require('./ChatBot/geminiAiService.js');
 
 
@@ -54,7 +55,6 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
-app.use('/api/search', searchRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/gaupal/article', articles);
 // chatbot
@@ -64,6 +64,10 @@ app.get('/gauguru/greeting', getGreeting);
 
 // farmer specific routes
 app.use('/gaupal/farmer', farmerRoutes);
+app.use('/gaupal/farmer/cattle', cattle);
+app.use('/gaupal/farmer/disease', disease);
+
+
 
 // Root route
 app.get('/', (req, res) => {

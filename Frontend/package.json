@@ -14,7 +14,7 @@
     "@react-google-maps/api": "^2.20.6",
     "@reduxjs/toolkit": "^2.6.1",
     "@tailwindcss/vite": "^4.0.14",
-    "axios": "^1.8.3",
+    "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "firebase": "^11.4.0",
     "framer-motion": "^12.5.0",

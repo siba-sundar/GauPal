@@ -7,7 +7,7 @@ const farmerDashboardController = {
   getDashboardMetrics: async (req, res) => {
     try {
       const { farmerId } = req.params;
-      
+
       if (!farmerId) {
         return res.status(400).json({ success: false, message: 'Farmer ID is required' });
       }
@@ -31,34 +31,34 @@ const farmerDashboardController = {
       const cattleSnapshot = await db.collection('cattle')
         .where('farmerId', '==', farmerId)
         .get();
-      
+
       metrics.totalCattle = cattleSnapshot.size;
 
       // Process cattle health data
       const currentDate = new Date();
       const checkupDueDate = new Date();
       checkupDueDate.setMonth(currentDate.getMonth() - 3); // Checkup due if last checkup > 3 months ago
-      
+
       cattleSnapshot.forEach(doc => {
         const cattle = doc.data();
-        
+
         // Analyze health status
         if (cattle.healthStatus === 'healthy') {
           metrics.cattleHealthSummary.healthy++;
         } else if (cattle.healthStatus === 'sick') {
           metrics.cattleHealthSummary.sick++;
         }
-        
+
         // Check if checkup is needed
         const lastCheckup = cattle.lastCheckupDate?.toDate() || new Date(0);
         if (lastCheckup < checkupDueDate) {
           metrics.cattleHealthSummary.needsCheckup++;
         }
-        
+
         // Check for upcoming vaccinations
         const nextMonth = new Date();
         nextMonth.setMonth(currentDate.getMonth() + 1);
-        
+
         cattle.vaccinations?.forEach(vaccination => {
           const nextDueDate = vaccination.nextDueDate?.toDate();
           if (nextDueDate && nextDueDate <= nextMonth && nextDueDate >= currentDate) {
@@ -77,16 +77,16 @@ const farmerDashboardController = {
         .where('sellerId', '==', farmerId)
         .where('status', 'in', ['pending', 'processing', 'shipped'])
         .get();
-      
+
       metrics.activeOrders = ordersSnapshot.size;
-      
+
       // Get recent orders for the dashboard
       const recentOrdersSnapshot = await db.collection('orders')
         .where('sellerId', '==', farmerId)
         .orderBy('createdAt', 'desc')
         .limit(5)
         .get();
-      
+
       recentOrdersSnapshot.forEach(doc => {
         const order = doc.data();
         metrics.recentOrders.push({
@@ -104,7 +104,7 @@ const farmerDashboardController = {
         .where('sellerId', '==', farmerId)
         .where('status', '==', 'delivered')
         .get();
-      
+
       revenueSnapshot.forEach(doc => {
         const order = doc.data();
         metrics.totalRevenue += order.totalAmount;
@@ -115,7 +115,7 @@ const farmerDashboardController = {
       const allOrdersSnapshot = await db.collection('orders')
         .where('sellerId', '==', farmerId)
         .get();
-      
+
       allOrdersSnapshot.forEach(doc => {
         const order = doc.data();
         order.items.forEach(item => {
@@ -135,7 +135,7 @@ const farmerDashboardController = {
       // Convert to array and find most sold product
       const productSalesArray = Object.values(productSales);
       if (productSalesArray.length > 0) {
-        metrics.mostSoldProduct = productSalesArray.reduce((max, product) => 
+        metrics.mostSoldProduct = productSalesArray.reduce((max, product) =>
           max.totalQuantity > product.totalQuantity ? max : product
         );
       }
@@ -158,7 +158,7 @@ const farmerDashboardController = {
   getAllCattle: async (req, res) => {
     try {
       const { farmerId } = req.params;
-      
+
       if (!farmerId) {
         return res.status(400).json({ success: false, message: 'Farmer ID is required' });
       }
@@ -166,7 +166,7 @@ const farmerDashboardController = {
       const cattleSnapshot = await db.collection('cattle')
         .where('farmerId', '==', farmerId)
         .get();
-      
+
       const cattle = [];
       cattleSnapshot.forEach(doc => {
         cattle.push({
@@ -194,13 +194,13 @@ const farmerDashboardController = {
   getCattleDetails: async (req, res) => {
     try {
       const { cattleId } = req.params;
-      
+
       if (!cattleId) {
         return res.status(400).json({ success: false, message: 'Cattle ID is required' });
       }
 
       const cattleDoc = await db.collection('cattle').doc(cattleId).get();
-      
+
       if (!cattleDoc.exists) {
         return res.status(404).json({ success: false, message: 'Cattle not found' });
       }
@@ -227,34 +227,78 @@ const farmerDashboardController = {
     try {
       const cattleData = req.body;
       const { farmerId } = req.params;
-      
+  
       if (!farmerId) {
         return res.status(400).json({ success: false, message: 'Farmer ID is required' });
       }
-
+  
       // Validate required fields
       if (!cattleData.name || !cattleData.breed) {
-        return res.status(400).json({ 
-          success: false, 
-          message: 'Name and breed are required fields' 
+        return res.status(400).json({
+          success: false,
+          message: 'Name and breed are required fields'
         });
       }
-
+  
       // Generate a unique ID for the cattle
       const cattleId = db.collection('cattle').doc().id;
-      
-      // Prepare cattle data with timestamps
+  
+      // Prepare cattle data with comprehensive details and timestamps
       const newCattle = {
-        ...cattleData,
+        // Basic information
+        name: cattleData.name,
+        breed: cattleData.breed,
+        age: cattleData.age || null,
+        gender: cattleData.gender || null,
+        dateOfBirth: cattleData.dateOfBirth ? 
+          admin.firestore.Timestamp.fromDate(new Date(cattleData.dateOfBirth)) : null,
+        
+        // Physical characteristics
+        weight: cattleData.weight || null,
+        height: cattleData.height || null,
+        color: cattleData.color || null,
+        
+        // Health information
+        healthStatus: cattleData.healthStatus || 'healthy',
+        lastVeterinaryCheckup: cattleData.lastVeterinaryCheckup ? 
+          admin.firestore.Timestamp.fromDate(new Date(cattleData.lastVeterinaryCheckup)) : null,
+        disease: cattleData.disease || 'None',
+        customDisease: cattleData.customDisease || null,
+        
+        // Breeding information
+        isBreedingStock: cattleData.isBreedingStock || false,
+        lastCalvingDate: cattleData.lastCalvingDate ? 
+          admin.firestore.Timestamp.fromDate(new Date(cattleData.lastCalvingDate)) : null,
+        numberOfCalves: cattleData.numberOfCalves || 0,
+        
+        // Identification
+        earTag: cattleData.earTag || null,
+        microchipNumber: cattleData.microchipNumber || null,
+        
+        // Management details
+        paddockLocation: cattleData.paddockLocation || null,
+        feedType: cattleData.feedType || null,
+        specialNotes: cattleData.specialNotes || null,
+        
+        // System metadata
         cattleId,
         farmerId,
         createdAt: admin.firestore.FieldValue.serverTimestamp(),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        
+        // Initialize vaccinations if provided
+        vaccinations: Array.isArray(cattleData.vaccinations) ? 
+          cattleData.vaccinations.map(vax => ({
+            ...vax,
+            date: vax.date ? admin.firestore.Timestamp.fromDate(new Date(vax.date)) : null,
+            nextDueDate: vax.nextDueDate ? 
+              admin.firestore.Timestamp.fromDate(new Date(vax.nextDueDate)) : null
+          })) : []
       };
-
+  
       // Add to Firestore
       await db.collection('cattle').doc(cattleId).set(newCattle);
-
+  
       res.status(201).json({
         success: true,
         message: 'Cattle added successfully',
@@ -278,14 +322,14 @@ const farmerDashboardController = {
     try {
       const { cattleId } = req.params;
       const updateData = req.body;
-      
+
       if (!cattleId) {
         return res.status(400).json({ success: false, message: 'Cattle ID is required' });
       }
 
       // Check if cattle exists
       const cattleDoc = await db.collection('cattle').doc(cattleId).get();
-      
+
       if (!cattleDoc.exists) {
         return res.status(404).json({ success: false, message: 'Cattle not found' });
       }
@@ -318,14 +362,14 @@ const farmerDashboardController = {
   deleteCattle: async (req, res) => {
     try {
       const { cattleId } = req.params;
-      
+
       if (!cattleId) {
         return res.status(400).json({ success: false, message: 'Cattle ID is required' });
       }
 
       // Check if cattle exists
       const cattleDoc = await db.collection('cattle').doc(cattleId).get();
-      
+
       if (!cattleDoc.exists) {
         return res.status(404).json({ success: false, message: 'Cattle not found' });
       }
@@ -352,22 +396,22 @@ const farmerDashboardController = {
     try {
       const { cattleId } = req.params;
       const vaccinationData = req.body;
-      
+
       if (!cattleId) {
         return res.status(400).json({ success: false, message: 'Cattle ID is required' });
       }
 
       // Validate required fields
       if (!vaccinationData.name || !vaccinationData.date) {
-        return res.status(400).json({ 
-          success: false, 
-          message: 'Vaccination name and date are required' 
+        return res.status(400).json({
+          success: false,
+          message: 'Vaccination name and date are required'
         });
       }
 
       // Check if cattle exists
       const cattleDoc = await db.collection('cattle').doc(cattleId).get();
-      
+
       if (!cattleDoc.exists) {
         return res.status(404).json({ success: false, message: 'Cattle not found' });
       }
@@ -379,7 +423,7 @@ const farmerDashboardController = {
       vaccinations.push({
         ...vaccinationData,
         date: admin.firestore.Timestamp.fromDate(new Date(vaccinationData.date)),
-        nextDueDate: vaccinationData.nextDueDate ? 
+        nextDueDate: vaccinationData.nextDueDate ?
           admin.firestore.Timestamp.fromDate(new Date(vaccinationData.nextDueDate)) : null
       });
 

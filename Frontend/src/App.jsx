@@ -17,15 +17,16 @@ import Loading from './components/common/loading.jsx'; // Fixed capitalization
 // farmer imports 
 import Farmer from "./layouts/Farmer.jsx"
 import FarmerDash from './components/farmer/FarmerDash.jsx';
-import CowManage from "./pages/CowManage.jsx"
+import CowManage from "./components/farmer/CowManage.jsx"
 import FarmerMaps from "./components/farmer/GoogleMapView.jsx"
 import AddProducts from "./components/farmer/AddProduct.jsx"
 import ProductList from "./components/farmer/ProductList.jsx"
 import ProductDetails from './components/farmer/ProductDetail.jsx';
+import FindDisease from "./components/farmer/Disease.jsx"
 
 // buyer imports 
 import User from "./layouts/User.jsx"
-import UserDash from './components/user/UserDash.jsx';
+import UserDash from './components/user/UserDash_temp.jsx';
 import Article from  "./components/user/Article.jsx"
 import ItemList from "./components/user/ItemsList.jsx"
 import ItemDetail from "./components/user/ItemDetails.jsx"
@@ -309,6 +310,10 @@ const router = createBrowserRouter([
         path:"breed",
         element:<ExploreBreed />
       },
+      {
+        path:'disease',
+        element:<FindDisease />
+      }
     ]
   },
   {
