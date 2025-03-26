@@ -1,4 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 const ChatBot = () => {
   const [messages, setMessages] = useState([]);
@@ -6,6 +9,7 @@ const ChatBot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const [streamingMessage, setStreamingMessage] = useState('');
+  const [typedMessage, setTypedMessage] = useState('');
 
   // Colors for the green theme
   const theme = {
@@ -15,6 +19,16 @@ const ChatBot = () => {
     lightest: '#E8F5E9', // Very light green background
     text: '#1B5E20',    // Dark green text
     white: '#FFFFFF'    // White
+  };
+
+  // Markdown components for custom rendering
+  const MarkdownComponents = {
+    strong: ({node, ...props}) => (
+      <strong style={{ fontWeight: 'bold' }} {...props} />
+    ),
+    em: ({node, ...props}) => (
+      <em style={{ fontStyle: 'italic' }} {...props} />
+    ),
   };
 
   useEffect(() => {
@@ -52,6 +66,35 @@ const ChatBot = () => {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Typing effect
+  useEffect(() => {
+    let timeoutId;
+    if (streamingMessage) {
+      const chars = streamingMessage.split('');
+      let currentIndex = 0;
+
+      const typeNextChar = () => {
+        if (currentIndex < chars.length) {
+          setTypedMessage(prev => prev + chars[currentIndex]);
+          currentIndex++;
+          timeoutId = setTimeout(typeNextChar, 20); // Adjust speed here
+        }
+      };
+
+      typeNextChar();
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [streamingMessage]);
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
   };
 
   const handleSend = async () => {
@@ -227,38 +270,8 @@ const ChatBot = () => {
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSend();
-    }
-  };
-
   return (
-    <div className="flex flex-col w-full max-w-md mx-auto h-96 rounded-lg shadow-lg overflow-hidden" style={{ backgroundColor: theme.white }}>
-      {/* Chat Header */}
-      <div className="p-3 flex items-center" style={{ backgroundColor: theme.primary }}>
-        <div className="w-2 h-2 rounded-full mr-2" style={{ backgroundColor: theme.lightest }}></div>
-        <h2 className="font-semibold" style={{ color: theme.white }}>GauGuru Assistant (Gemini 2.0 Flash)</h2>
-        <div className="ml-auto flex space-x-2">
-          <button 
-            onClick={() => handleSend()}
-            disabled={isLoading}
-            className="text-xs px-2 py-1 rounded"
-            style={{ backgroundColor: theme.light, color: theme.white }}
-          >
-            Regular
-          </button>
-          <button 
-            onClick={() => handleStreamingChat()}
-            disabled={isLoading}
-            className="text-xs px-2 py-1 rounded"
-            style={{ backgroundColor: theme.light, color: theme.white }}
-          >
-            Stream
-          </button>
-        </div>
-      </div>
-      
+    <div className="flex flex-col w-full max-w-md mx-auto rounded-lg shadow-lg overflow-hidden h-full" style={{ backgroundColor: theme.white }}>
       {/* Messages Container */}
       <div className="flex-1 p-4 overflow-y-auto" style={{ backgroundColor: theme.lightest }}>
         {messages.length === 0 ? (
@@ -276,13 +289,18 @@ const ChatBot = () => {
                 borderRadius: message.isUser ? '12px 12px 0 12px' : '12px 12px 12px 0'
               }}
             >
-              {message.text}
+              <ReactMarkdown 
+                components={MarkdownComponents}
+                rehypePlugins={[rehypeRaw, rehypeSanitize]}
+              >
+                {message.text}
+              </ReactMarkdown>
             </div>
           ))
         )}
         
-        {/* Streaming message */}
-        {streamingMessage && (
+        {/* Streaming/Typed message */}
+        {(streamingMessage || typedMessage) && (
           <div 
             className="mb-3 max-w-xs rounded-lg p-3 mr-auto"
             style={{ 
@@ -291,7 +309,12 @@ const ChatBot = () => {
               borderRadius: '12px 12px 12px 0'
             }}
           >
-            {streamingMessage}
+            <ReactMarkdown 
+              components={MarkdownComponents}
+              rehypePlugins={[rehypeRaw, rehypeSanitize]}
+            >
+              {typedMessage}
+            </ReactMarkdown>
           </div>
         )}
         

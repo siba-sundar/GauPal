@@ -8,23 +8,29 @@ import {
   ClipboardList,
   ShoppingBag,
   Settings,
-  User
+  User,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 import LogoutButton from '../Logout.jsx';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProductsOpen, setIsProductsOpen] = useState(false);
 
   const navItems = [
     { icon: Home, label: 'Dashboard', path: '/farmer/dashboard' },
     { icon: Home, label: 'Manage Cows', path: '/farmer/manage-cow' },
-    { icon: ClipboardList, label: 'Orders', path: '/orders' },
-    { icon: ShoppingBag, label: 'Products', path: '/products' },
-    { icon: User, label: 'Add Products', path: '/farmer/add-product' },
-    { icon: ShoppingBag, label: 'Products List', path: '/farmer/products' }
+    { icon: ClipboardList, label: 'Orders', path: '/orders' }
+  ];
+
+  const productItems = [
+    { label: 'Add Product', path: '/farmer/add-product' },
+    { label: 'Products List', path: '/farmer/products' }
   ];
 
   const toggleSidebar = () => setIsOpen(!isOpen);
+  const toggleProductsDropdown = () => setIsProductsOpen(!isProductsOpen);
 
   return (
     <>
@@ -70,6 +76,34 @@ const Sidebar = () => {
                 <span>{item.label}</span>
               </Link>
             ))}
+
+            {/* Products Dropdown */}
+            <div>
+              <button 
+                onClick={toggleProductsDropdown}
+                className="w-full flex items-center justify-between space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-600"
+              >
+                <div className="flex items-center space-x-3">
+                  <ShoppingBag size={20} />
+                  <span>Products</span>
+                </div>
+                {isProductsOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+              </button>
+
+              {isProductsOpen && (
+                <div className="pl-6 mt-1 space-y-1">
+                  {productItems.map((item) => (
+                    <Link
+                      key={item.label}
+                      to={item.path}
+                      className="block px-3 py-2 text-sm rounded-lg hover:bg-green-50 text-gray-600 hover:text-green-600"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </nav>
 

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import { Calendar, ChevronRight, TrendingUp, Package, Tag } from 'lucide-react';
 
+import ChatbotComponent from '../ChatBot.jsx';
+import { MessageCircle, X, Minus } from 'lucide-react';
+
 const DashboardContent = () => {
+
+  const [isChatMinimized, setIsChatMinimized] = useState(true);
+  const [isChatClosed, setIsChatClosed] = useState(false);
   // Sample data
   const cattleData = [
     { id: 'COW001', name: 'Lakshmi', breed: 'Gir', age: 4, health: 'Good', lastVaccination: '2025-02-15', milkYield: '18 liters/day' },
@@ -39,7 +45,30 @@ const DashboardContent = () => {
     { id: 3, title: 'Health Check - All Cattle', date: 'Apr 10, 2025' },
   ];
 
+  const toggleChat = () => {
+    setIsChatMinimized(!isChatMinimized);
+  };
+
+  const closeChat = () => {
+    setIsChatClosed(true);
+  };
+
+  const reopenChat = () => {
+    setIsChatClosed(false);
+    setIsChatMinimized(true);
+  };
+
+  if (isChatClosed) {
+    return (
+      <>
+        <DashboardContent />
+        
+      </>
+    );
+  }
+
   return (
+    <div className="relative min-h-screen">
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       {/* Top Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
@@ -363,6 +392,47 @@ const DashboardContent = () => {
         </div>
       </div>
     </main>
+
+    {/* Chatbot Widget */}
+    <div className="fixed bottom-4 right-4 z-50 ">
+        {isChatMinimized ? (
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={toggleChat} 
+              className="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-colors flex items-center"
+            >
+              <MessageCircle size={24} className="mr-2" /> GauGuru Assistant
+            </button>
+           
+          </div>
+        ) : (
+          <div className="bg-white rounded-lg shadow-xl border border-gray-200">
+            <div 
+              className="bg-green-500 text-white p-3 rounded-t-lg flex justify-between items-center"
+            >
+              <span className="font-semibold">Customer Support</span>
+              <div className="flex space-x-2">
+                <button 
+                  onClick={toggleChat} 
+                  className="hover:bg-green-600 p-1 rounded"
+                >
+                  <Minus size={20} />
+                </button>
+                <button 
+                  onClick={closeChat} 
+                  className="hover:bg-red-600 p-1 rounded"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <div className="h-[80vh]">
+              <ChatbotComponent />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
