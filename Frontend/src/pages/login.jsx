@@ -40,7 +40,7 @@ const LoginPage = () => {
       } else if (userType === 'buyer') {
         navigate('/buyer/dashboard');
       } else {
-        navigate('/');
+        navigate('/loading');
       }
     } catch (err) {
       console.error('Login error:', err);

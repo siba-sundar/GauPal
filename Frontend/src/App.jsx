@@ -5,19 +5,16 @@ import { initializeApp } from 'firebase/app';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/Login.jsx';
 import SignupPage from './pages/SignupPage.jsx';
-// import FarmerDashboard from './pages/FarmerDash.jsx';
-// import BuyerDashboard from './pages/UserDash.jsx';
 import NotFoundPage from './pages/NoFound.jsx';
-import { AuthProvider, useAuth } from '../utils/AuthProvider.jsx';
-
+import { AuthProvider } from '../utils/AuthProvider.jsx';
 
 // common imports 
 import ChatBot from "./components/ChatBot.jsx"
 import Landing from './pages/Landing.jsx';
-
+import ExploreBreed from "./components/common/ExploreBreed.jsx"
+import Loading from './components/common/loading.jsx'; // Fixed capitalization
 
 // farmer imports 
-
 import Farmer from "./layouts/Farmer.jsx"
 import FarmerDash from './components/farmer/FarmerDash.jsx';
 import CowManage from "./pages/CowManage.jsx"
@@ -26,13 +23,12 @@ import AddProducts from "./components/farmer/AddProduct.jsx"
 import ProductList from "./components/farmer/ProductList.jsx"
 import ProductDetails from './components/farmer/ProductDetail.jsx';
 
-
-
 // buyer imports 
 import User from "./layouts/User.jsx"
 import UserDash from './components/user/UserDash.jsx';
 import Article from  "./components/user/Article.jsx"
-
+import ItemList from "./components/user/ItemsList.jsx"
+import ItemDetail from "./components/user/ItemDetails.jsx"
 
 // Initialize Firebase - replace with your actual firebase config
 const firebaseConfig = {
@@ -46,8 +42,6 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-
-
 
 // Sample data
 const sampleData = {
@@ -125,6 +119,7 @@ const sampleData = {
     }
   ]
 };
+
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const auth = getAuth();
@@ -196,7 +191,7 @@ const PublicRoute = ({ children }) => {
     } else if (userType === 'buyer') {
       return <Navigate to="/buyer/dashboard" replace />;
     } else {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/loading" replace />;
     }
   }
 
@@ -309,10 +304,13 @@ const router = createBrowserRouter([
       {
         path:"product/:productId",
         element:<ProductDetails />
-      }
+      },
+      {
+        path:"breed",
+        element:<ExploreBreed />
+      },
     ]
   },
-
   {
     path: "/buyer",
     element: (
@@ -322,7 +320,6 @@ const router = createBrowserRouter([
         </UserTypeRoute>
       </ProtectedRoute>
     ),
-
     children:[
       {
         path:"dashboard",
@@ -334,7 +331,19 @@ const router = createBrowserRouter([
       },
       {
         path:"article/:article-id",
-        element:<Article  articleData={sampleData}/>
+        element:<Article articleData={sampleData}/>
+      },
+      {
+        path:"breed",
+        element:<ExploreBreed />
+      },
+      {
+        path:'item-list',
+        element:<ItemList />
+      },
+      {
+        path:'item-list/:itemId',
+        element:<ItemDetail />
       }
     ]
   },
@@ -342,6 +351,10 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFoundPage />,
   },
+  {
+    path: "/loading", // Fixed typo from "pat" to "path"
+    element: <Loading /> // Capitalized component name
+  }
 ]);
 
 // Main App component

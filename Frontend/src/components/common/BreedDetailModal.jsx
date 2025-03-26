@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { X, ChevronRight } from 'lucide-react';
 
 const BreedDetailsModal = ({ breed, onClose }) => {
@@ -7,12 +7,12 @@ const BreedDetailsModal = ({ breed, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
-        {/* Close Button */}
+        {/* Cross Button - More Prominent */}
         <button 
-          onClick={onClose} 
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          onClick={onClose}
+          className="absolute top-4 right-4 bg-red-100 text-red-600 rounded-full p-2 hover:bg-red-200 transition-colors z-10"
         >
-          <X size={24} />
+          <X size={24} strokeWidth={2} />
         </button>
 
         {/* Header with Breed Image */}

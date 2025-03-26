@@ -13,5 +13,13 @@ router.get('/all-article',verifyToken, articleController.getAllBreedArticles);
 // breed details 
 
 router.get('/random/breed', verifyToken, articleController.getRandomBreeds);
+// Get all breeds
+router.get('/all-breed', verifyToken, articleController.getAllBreeds);
+
+// Get a specific breed by name
+router.get('/breed/:breedName', verifyToken, articleController.getBreedByName);
+
+// Search breeds
+router.get('/breed/search', verifyToken, articleController.searchBreeds);
 
 module.exports = router;

@@ -1,19 +1,18 @@
 // routes/product.routes.js
 const express = require('express');
-const { 
-  createProduct, 
-  updateProduct, 
-  deleteProduct,
-} = require('../controller/product.controller.js');
-
 
 const {
-    getProductsByFarmer, 
-    getProductById
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProductsByFarmer,
+  getProductById
 } = require('../controller/farmer.controller.js')
+
+
 const { verifyToken, isFarmer } = require('../middleware/auth.middleware.js');
 // const { uploadProductImage } = require('../controller/upload.controller.js');
-const uploadImage  = require('../utils/upload.utils.js')
+const uploadImage = require('../utils/upload.utils.js')
 
 const router = express.Router();
 

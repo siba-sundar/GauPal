@@ -187,9 +187,10 @@ const UserDashboard = () => {
           <div className="lg:col-span-2">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-gray-800">Featured Cow Breeds</h2>
-              <button className="text-sm text-green-600 hover:text-green-700 font-medium flex items-center">
+              <Link to="/buyer/breed" className="text-sm text-green-600 hover:text-green-700 font-medium flex items-center">
+                
                 View All Breeds <ChevronRight size={16} className="ml-1" />
-              </button>
+              </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {featuredBreeds.map((breed) => (
