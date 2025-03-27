@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
-import { CattleService } from './CattleServices.jsx'; // API service we just created
+import { CattleService } from './CattleServices.jsx';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 // Icons for better UI
-import { 
-  PlusIcon, 
-  TrashIcon, 
-  EditIcon,  
+import {
+  PlusIcon,
+  TrashIcon,
+  EditIcon,
   InfoIcon,
-  XIcon 
+  XIcon,
+  HeartIcon
 } from 'lucide-react';
 
 const CattleManagementDashboard = () => {
@@ -26,6 +28,9 @@ const CattleManagementDashboard = () => {
   // Modal states
   const [isAddCattleModalOpen, setIsAddCattleModalOpen] = useState(false);
   const [isVaccinationModalOpen, setIsVaccinationModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isBreedingModalOpen, setIsBreedingModalOpen] = useState(false);
+  const [breedingRecommendations, setBreedingRecommendations] = useState([]);
 
   // Form data states
   const [newCattleForm, setNewCattleForm] = useState({
@@ -34,34 +39,34 @@ const CattleManagementDashboard = () => {
     age: '',
     gender: '',
     dateOfBirth: '',
-    
+
     // Physical Characteristics
     weight: '',
     height: '',
     color: '',
-    
+
     // Health Information
     healthStatus: 'healthy',
     lastVeterinaryCheckup: '',
     vaccinations: [],
-    
+
     // Breeding Information
     isBreedingStock: false,
     lastCalvingDate: '',
     numberOfCalves: 0,
-    
+
     // Identification
     earTag: '',
     microchipNumber: '',
-    
+
     // Farm-Specific Details
     paddockLocation: '',
     feedType: '',
-    
+
     // Disease Tracking
     disease: 'None',
     customDisease: '',
-    
+
     // Additional Notes
     specialNotes: ''
   });
@@ -74,22 +79,72 @@ const CattleManagementDashboard = () => {
 
   // Dropdown Options
   const BREED_OPTIONS = [
-    'Angus', 'Hereford', 'Charolais', 'Simmental', 
-    'Holstein', 'Jersey', 'Brahman', 'Other'
+    'Gir', 'Tharparkar', 'Kankrej', 'Rathi',
+    'Ongole', 'Deoni', 'Malvi', 'Hallikar',
+    'Nagori', 'Kherigarh', 'Punganur', 'Gaolao',
+    'Nimari', 'Kangayam', 'Mewati', 'Bargur',
+    'Hariana', 'Siri'
   ];
 
+
   const DISEASE_OPTIONS = [
-    'None', 'Mastitis', 'Foot Rot', 'Pneumonia', 
-    'Bovine Respiratory Disease', 'Other'
+    'Abscess', 'Actinomycosis', 'Bovine Dermatophilosis (Rain Rot)',
+    'Bovine Warts', 'Bovine spongiform encephalopathy (BSE)', 'Dermatophytosis',
+    'Digital Dermatitis (also causes lameness)', 'Foot and Mouth Disease', 'Hoof Rot',
+    'Lumpy Skin Diseases', 'Mange', 'Mastititis', 'Pediculosis',
+    'Photosensitization', 'Pink Eye', 'Healthy Cows'
   ];
 
   const auth = getAuth();
-  
+
+  // Fetch breeding recommendations
+  const fetchBreedingRecommendations = async (breed) => {
+    try {
+      const response = await axios.get(`/recommend?breed=${breed}`);
+      // Ensure the response data is an array, default to empty array if not
+      const recommendations = Array.isArray(response.data)
+        ? response.data
+        : [];
+      setBreedingRecommendations(recommendations);
+      setIsBreedingModalOpen(true);
+    } catch (error) {
+      console.error('Error fetching breeding recommendations:', error);
+      toast.error('Failed to fetch breeding recommendations');
+      // Set an empty array to prevent map errors
+      setBreedingRecommendations([]);
+    }
+  };
+
+
+  // Handle cattle deletion
+  const handleDeleteCattle = async () => {
+    try {
+      if (!selectedCattle || !token) {
+        toast.error('Select a cattle and ensure authentication');
+        return;
+      }
+
+      await CattleService.deleteCattle(selectedCattle.id, token);
+
+      // Remove the deleted cattle from the list
+      setCattleList(prev => prev.filter(cattle => cattle.id !== selectedCattle.id));
+
+      // Close modals
+      setIsDetailModalOpen(false);
+      setSelectedCattle(null);
+
+      toast.success('Cattle deleted successfully');
+    } catch (error) {
+      toast.error('Failed to delete cattle');
+    }
+  };
+
+  // Fetch user and cattle data on component mount
   useEffect(() => {
     const fetchUserAndData = async () => {
       try {
         const currentUser = auth.currentUser;
-        
+
         if (!currentUser) {
           setError('Please log in to access cattle management');
           setLoading(false);
@@ -120,6 +175,7 @@ const CattleManagementDashboard = () => {
     fetchUserAndData();
   }, []);
 
+  // Handle adding new cattle
   const handleAddCattle = async (e) => {
     e.preventDefault();
     try {
@@ -129,42 +185,29 @@ const CattleManagementDashboard = () => {
       }
 
       // Determine final disease value
-      const finalDisease = newCattleForm.disease === 'Other' 
-        ? newCattleForm.customDisease 
+      const finalDisease = newCattleForm.disease === 'Other'
+        ? newCattleForm.customDisease
         : newCattleForm.disease;
 
       const newCattle = await CattleService.addCattle(
-        user.uid, 
-        {...newCattleForm, disease: finalDisease}, 
+        user.uid,
+        { ...newCattleForm, disease: finalDisease },
         token
       );
 
       setCattleList(prev => [...prev, newCattle]);
       setIsAddCattleModalOpen(false);
       toast.success('Cattle added successfully');
-      
+
       // Reset form
       setNewCattleForm({
-        name: '',
-        breed: '',
-        age: '',
-        gender: '',
-        dateOfBirth: '',
-        weight: '',
-        height: '',
-        color: '',
-        healthStatus: 'healthy',
-        lastVeterinaryCheckup: '',
-        vaccinations: [],
-        isBreedingStock: false,
-        lastCalvingDate: '',
-        numberOfCalves: 0,
-        earTag: '',
-        microchipNumber: '',
-        paddockLocation: '',
-        feedType: '',
-        disease: 'None',
-        customDisease: '',
+        name: '', breed: '', age: '', gender: '', dateOfBirth: '',
+        weight: '', height: '', color: '',
+        healthStatus: 'healthy', lastVeterinaryCheckup: '', vaccinations: [],
+        isBreedingStock: false, lastCalvingDate: '', numberOfCalves: 0,
+        earTag: '', microchipNumber: '',
+        paddockLocation: '', feedType: '',
+        disease: 'None', customDisease: '',
         specialNotes: ''
       });
     } catch (error) {
@@ -172,6 +215,7 @@ const CattleManagementDashboard = () => {
     }
   };
 
+  // Handle adding vaccination
   const handleAddVaccination = async (e) => {
     e.preventDefault();
     try {
@@ -181,14 +225,14 @@ const CattleManagementDashboard = () => {
       }
 
       await CattleService.addVaccination(
-        selectedCattle.id, 
-        vaccinationForm, 
+        selectedCattle.id,
+        vaccinationForm,
         token
       );
 
       toast.success('Vaccination record added');
       setIsVaccinationModalOpen(false);
-      
+
       // Reset vaccination form
       setVaccinationForm({
         name: '',
@@ -227,14 +271,14 @@ const CattleManagementDashboard = () => {
       <div className="bg-white shadow-md rounded-lg">
         <div className="flex justify-between items-center p-4">
           <h2 className="text-xl font-semibold">My Cattle</h2>
-          <button 
+          <button
             onClick={() => setIsAddCattleModalOpen(true)}
             className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md"
           >
             <PlusIcon className="mr-2" /> Add Cattle
           </button>
         </div>
-        
+
         {/* Cattle List Table */}
         <table className="w-full">
           <thead>
@@ -263,7 +307,7 @@ const CattleManagementDashboard = () => {
                 </td>
                 <td className="p-3">{cattle.disease}</td>
                 <td className="p-3 flex space-x-2">
-                  <button 
+                  <button
                     onClick={() => {
                       setSelectedCattle(cattle);
                       setIsVaccinationModalOpen(true);
@@ -272,8 +316,11 @@ const CattleManagementDashboard = () => {
                   >
                     <PlusIcon size={16} />
                   </button>
-                  <button 
-                    onClick={() => setSelectedCattle(cattle)}
+                  <button
+                    onClick={() => {
+                      setSelectedCattle(cattle);
+                      setIsDetailModalOpen(true);
+                    }}
                     className="text-green-500 hover:bg-green-50 p-1 rounded"
                   >
                     <InfoIcon size={16} />
@@ -285,12 +332,158 @@ const CattleManagementDashboard = () => {
         </table>
       </div>
 
+      {/* Detailed Cattle View Modal */}
+      {isDetailModalOpen && selectedCattle && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg w-3/4 max-h-[80vh] relative flex flex-col">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsDetailModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10"
+            >
+              <XIcon size={24} />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4 p-4 border-b">
+              Cattle Details: {selectedCattle.name}
+            </h2>
+
+            {/* Detailed Information Container */}
+            <div className="overflow-y-auto flex-grow p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Basic Information Column */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-green-700">Basic Information</h3>
+                <div className="space-y-2">
+                  <p><strong>Name:</strong> {selectedCattle.name}</p>
+                  <p><strong>Breed:</strong> {selectedCattle.breed}</p>
+                  <p><strong>Gender:</strong> {selectedCattle.gender}</p>
+                  <p><strong>Age:</strong> {selectedCattle.age} years</p>
+                  <p><strong>Color:</strong> {selectedCattle.color}</p>
+                </div>
+              </div>
+
+              {/* Health Information Column */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-green-700">Health Information</h3>
+                <div className="space-y-2">
+                  <p>
+                    <strong>Health Status:</strong>{' '}
+                    <span className={`
+                      px-2 py-1 rounded-full text-xs 
+                      ${selectedCattle.healthStatus === 'healthy' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}
+                    `}>
+                      {selectedCattle.healthStatus}
+                    </span>
+                  </p>
+                  <p><strong>Disease:</strong> {selectedCattle.disease}</p>
+                  <p><strong>Last Veterinary Checkup:</strong> {selectedCattle.lastVeterinaryCheckup || 'N/A'}</p>
+                </div>
+              </div>
+
+              {/* Additional Details Column */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-green-700">Additional Details</h3>
+                <div className="space-y-2">
+                  <p><strong>Ear Tag:</strong> {selectedCattle.earTag || 'N/A'}</p>
+                  <p><strong>Paddock Location:</strong> {selectedCattle.paddockLocation || 'N/A'}</p>
+                  <p><strong>Special Notes:</strong> {selectedCattle.specialNotes || 'None'}</p>
+                </div>
+              </div>
+
+              {/* Action Column */}
+              <div className="flex flex-col space-y-4">
+                <button
+                  onClick={() => fetchBreedingRecommendations(selectedCattle.breed)}
+                  className="flex items-center justify-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                >
+                  <HeartIcon className="mr-2" /> Find Breeding Pair
+                </button>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => {/* Implement edit logic */ }}
+                    className="flex-1 flex items-center justify-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                  >
+                    <EditIcon className="mr-2" /> Edit
+                  </button>
+                  <button
+                    onClick={handleDeleteCattle}
+                    className="flex-1 flex items-center justify-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                  >
+                    <TrashIcon className="mr-2" /> Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {isBreedingModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg w-1/2 max-h-[70vh] relative flex flex-col">
+            <button
+              onClick={() => setIsBreedingModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10"
+            >
+              <XIcon size={24} />
+            </button>
+
+            <h2 className="text-xl font-semibold mb-4 p-4 border-b">
+              Breeding Pair Recommendations
+            </h2>
+
+
+            <div className="overflow-y-auto flex-grow p-4">
+              {breedingRecommendations.length > 0 ? (
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-green-100">
+                      <th className="p-3 text-left">Breed</th>
+                      <th className="p-3 text-right">Milk Yield</th>
+                      <th className="p-3 text-right">Compatibility Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {breedingRecommendations.map((recommendation, index) => (
+                      <tr
+                        key={recommendation.Breed}
+                        className={`
+                    ${index % 2 === 0 ? 'bg-white' : 'bg-green-50'}
+                    hover:bg-green-100 transition-colors
+                  `}
+                      >
+                        <td className="p-3">{recommendation.Breed}</td>
+                        <td className="p-3 text-right">{recommendation.Milk_Yield.toLocaleString()} L</td>
+                        <td className="p-3 text-right">
+                          <span className={`
+                      px-2 py-1 rounded-full text-xs
+                      ${recommendation.Score >= 9 ? 'bg-green-100 text-green-800' :
+                              recommendation.Score >= 8 ? 'bg-yellow-100 text-yellow-800' :
+                                'bg-red-100 text-red-800'}
+                    `}>
+                            {recommendation.Score.toFixed(2)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="text-center text-gray-500 p-4">
+                  No breeding recommendations available
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+
       {/* Add Cattle Modal */}
       {isAddCattleModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg w-3/4 max-h-[80vh] relative flex flex-col">
             {/* Close Button */}
-            <button 
+            <button
               onClick={() => setIsAddCattleModalOpen(false)}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10"
             >
@@ -298,9 +491,9 @@ const CattleManagementDashboard = () => {
             </button>
 
             <h2 className="text-xl font-semibold mb-4 p-4 border-b">Register New Cattle</h2>
-            
+
             {/* Scrollable Form Container */}
-            <form 
+            <form
               onSubmit={handleAddCattle}
               className="overflow-y-auto flex-grow p-4"
               style={{ maxHeight: 'calc(80vh - 100px)' }}
@@ -316,7 +509,7 @@ const CattleManagementDashboard = () => {
                     type="text"
                     name="name"
                     value={newCattleForm.name}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, name: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, name: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     required
                   />
@@ -326,7 +519,7 @@ const CattleManagementDashboard = () => {
                   <select
                     name="breed"
                     value={newCattleForm.breed}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, breed: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, breed: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     required
                   >
@@ -341,7 +534,7 @@ const CattleManagementDashboard = () => {
                   <select
                     name="gender"
                     value={newCattleForm.gender}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, gender: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, gender: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     required
                   >
@@ -361,7 +554,7 @@ const CattleManagementDashboard = () => {
                     type="number"
                     name="age"
                     value={newCattleForm.age}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, age: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, age: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     required
                   />
@@ -372,7 +565,7 @@ const CattleManagementDashboard = () => {
                     type="number"
                     name="weight"
                     value={newCattleForm.weight}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, weight: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, weight: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     required
                   />
@@ -383,7 +576,7 @@ const CattleManagementDashboard = () => {
                     type="text"
                     name="color"
                     value={newCattleForm.color}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, color: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, color: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
@@ -397,7 +590,7 @@ const CattleManagementDashboard = () => {
                   <select
                     name="healthStatus"
                     value={newCattleForm.healthStatus}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, healthStatus: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, healthStatus: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   >
                     <option value="healthy">Healthy</option>
@@ -410,7 +603,7 @@ const CattleManagementDashboard = () => {
                   <select
                     name="disease"
                     value={newCattleForm.disease}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, disease: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, disease: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   >
                     {DISEASE_OPTIONS.map(disease => (
@@ -425,7 +618,7 @@ const CattleManagementDashboard = () => {
                       type="text"
                       name="customDisease"
                       value={newCattleForm.customDisease}
-                      onChange={(e) => setNewCattleForm({...newCattleForm, customDisease: e.target.value})}
+                      onChange={(e) => setNewCattleForm({ ...newCattleForm, customDisease: e.target.value })}
                       className="w-full p-2 border border-gray-300 rounded-md"
                       required
                     />
@@ -437,7 +630,7 @@ const CattleManagementDashboard = () => {
                     type="date"
                     name="lastVeterinaryCheckup"
                     value={newCattleForm.lastVeterinaryCheckup}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, lastVeterinaryCheckup: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, lastVeterinaryCheckup: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
@@ -452,7 +645,7 @@ const CattleManagementDashboard = () => {
                     type="text"
                     name="earTag"
                     value={newCattleForm.earTag}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, earTag: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, earTag: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
@@ -462,7 +655,7 @@ const CattleManagementDashboard = () => {
                     type="text"
                     name="paddockLocation"
                     value={newCattleForm.paddockLocation}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, paddockLocation: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, paddockLocation: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   />
                 </div>
@@ -471,7 +664,7 @@ const CattleManagementDashboard = () => {
                   <textarea
                     name="specialNotes"
                     value={newCattleForm.specialNotes}
-                    onChange={(e) => setNewCattleForm({...newCattleForm, specialNotes: e.target.value})}
+                    onChange={(e) => setNewCattleForm({ ...newCattleForm, specialNotes: e.target.value })}
                     className="w-full p-2 border border-gray-300 rounded-md"
                     rows="3"
                   />
@@ -503,7 +696,7 @@ const CattleManagementDashboard = () => {
       {isVaccinationModalOpen && selectedCattle && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-1/2 relative">
-            <button 
+            <button
               onClick={() => setIsVaccinationModalOpen(false)}
               className="absolute top-4 right-4"
             >
@@ -516,32 +709,32 @@ const CattleManagementDashboard = () => {
                   type="text"
                   placeholder="Vaccination Name"
                   value={vaccinationForm.name}
-                  onChange={(e) => setVaccinationForm({...vaccinationForm, name: e.target.value})}
+                  onChange={(e) => setVaccinationForm({ ...vaccinationForm, name: e.target.value })}
                   required
                 />
                 <input
                   type="date"
                   value={vaccinationForm.date}
-                  onChange={(e) => setVaccinationForm({...vaccinationForm, date: e.target.value})}
+                  onChange={(e) => setVaccinationForm({ ...vaccinationForm, date: e.target.value })}
                   required
                 />
                 <input
                   type="date"
                   placeholder="Next Due Date"
                   value={vaccinationForm.nextDueDate}
-                  onChange={(e) => setVaccinationForm({...vaccinationForm, nextDueDate: e.target.value})}
+                  onChange={(e) => setVaccinationForm({ ...vaccinationForm, nextDueDate: e.target.value })}
                 />
               </div>
               <div className="flex justify-end space-x-2 mt-4">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setIsVaccinationModalOpen(false)}
                   className="bg-gray-200 px-4 py-2 rounded"
                 >
                   Cancel
                 </button>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className="bg-green-500 text-white px-4 py-2 rounded"
                 >
                   Add Vaccination

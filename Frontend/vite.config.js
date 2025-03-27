@@ -8,4 +8,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      '/recommend': {
+        target: 'https://breeding-recommender-api-896191931404.us-central1.run.app',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/recommend/, '/recommend')
+      }
+    }
+  }
 })

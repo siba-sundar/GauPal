@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const env = require('dotenv');
 const path = require('path');
+const axios = require('axios');
 
 // Load environment variables
 env.config();
@@ -72,6 +73,19 @@ app.use('/gaupal/farmer/disease', disease);
 // Root route
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Farmers Marketplace API' });
+});
+
+app.get('/gaupal/breeding-recommendations', async (req, res) => {
+  try {
+    const breed = req.query.breed;
+    const response = await axios.get(
+      `https://breeding-recommender-api-896191931404.us-central1.run.app/recommend?breed=${breed}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error('Proxy error:', error);
+    res.status(500).json({ error: 'Failed to fetch recommendations' });
+  }
 });
 
 
