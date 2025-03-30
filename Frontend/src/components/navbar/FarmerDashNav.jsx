@@ -52,7 +52,7 @@ const Sidebar = () => {
       <div className={`
         fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        lg:relative lg:transform-none
+        lg:relative lg:transform-none h-screen
       `}>
         {/* Logo */}
         <div className="p-4 border-b">

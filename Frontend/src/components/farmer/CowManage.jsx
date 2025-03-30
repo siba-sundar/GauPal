@@ -14,6 +14,7 @@ import {
   HeartIcon
 } from 'lucide-react';
 
+
 const CattleManagementDashboard = () => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -76,6 +77,18 @@ const CattleManagementDashboard = () => {
     date: '',
     nextDueDate: ''
   });
+
+  const formatDate = (timestamp) => {
+    if (!timestamp) return 'N/A';
+    
+    // If it's a Firestore Timestamp object
+    if (timestamp._seconds) {
+      return new Date(timestamp._seconds * 1000).toLocaleDateString();
+    }
+    
+    // If it's already a string date
+    return new Date(timestamp).toLocaleDateString();
+  };
 
   // Dropdown Options
   const BREED_OPTIONS = [
@@ -376,7 +389,7 @@ const CattleManagementDashboard = () => {
                     </span>
                   </p>
                   <p><strong>Disease:</strong> {selectedCattle.disease}</p>
-                  <p><strong>Last Veterinary Checkup:</strong> {selectedCattle.lastVeterinaryCheckup || 'N/A'}</p>
+                  <p><strong>Last Veterinary Checkup:</strong> {formatDate(selectedCattle.lastVeterinaryCheckup)}</p>
                 </div>
               </div>
 

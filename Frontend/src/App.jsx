@@ -23,7 +23,7 @@ import AddProducts from "./components/farmer/AddProduct.jsx"
 import ProductList from "./components/farmer/ProductList.jsx"
 import ProductDetails from './components/farmer/ProductDetail.jsx';
 import FindDisease from "./components/farmer/Disease.jsx"
-
+import Diseaseqna from "./components/farmer/DiseaseQnA.jsx"
 // buyer imports 
 import User from "./layouts/User.jsx"
 import UserDash from './components/user/UserDash_temp.jsx';
@@ -313,6 +313,10 @@ const router = createBrowserRouter([
       {
         path:'disease',
         element:<FindDisease />
+      },
+      {
+        path:"disease-qna",
+        element:<Diseaseqna/>
       }
     ]
   },

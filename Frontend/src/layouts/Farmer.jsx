@@ -3,12 +3,14 @@ import FarmerNav from "../components/navbar/FarmerDashNav.jsx"
 
 const FarmerDash = () => {
   return (
-    <div className="min-h-screen bg-gray-50 flex">
-    <FarmerNav />
-    <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
-      <Outlet/>
-    </main>
-  </div>
+    <div className="min-h-screen bg-gray-50 flex grid-cols-2">
+      <div className="fixed z-30">
+        <FarmerNav />
+      </div>
+      <main className="flex-1 p-4 lg:p-8 overflow-y-auto">
+        <Outlet />
+      </main>
+    </div>
   )
 }
 

@@ -10,7 +10,9 @@ const Landing = () =>{
         <div>
             <Provider store={store}>
             <Navbar />
+            <div>
             <Hero />
+            </div>
             <Footer />
             </Provider>
             
