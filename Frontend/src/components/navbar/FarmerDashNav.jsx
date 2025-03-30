@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  Bell, 
-  Menu, 
-  X, 
+import {
+  Bell,
+  Menu,
+  X,
   Home,
   ClipboardList,
   ShoppingBag,
@@ -12,10 +12,14 @@ import {
   ChevronDown,
   ChevronRight
 } from 'lucide-react';
+import axios from "axios";
 import LogoutButton from '../Logout.jsx';
+
+import { getAuth } from "firebase/auth"
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState(null);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
 
   const navItems = [
@@ -32,6 +36,39 @@ const Sidebar = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
   const toggleProductsDropdown = () => setIsProductsOpen(!isProductsOpen);
+
+  const auth = getAuth();
+  useEffect(() => {
+    const fetchDetails = async () => {
+      try {
+        const user = auth.currentUser;
+
+        if (!user) {
+          console.log('Error: Unable to find user');
+          return;
+        }
+
+        const token = await user.getIdToken();
+        const response = await axios.get('http://localhost:5000/gaupal/auth/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        setUsername(response.data.fullName);
+        console.log(response);
+      } catch (err) {
+        console.log('Error fetching data', err);
+      }
+    };
+
+    fetchDetails();
+  }, [])
+
+
+
+
+
 
   return (
     <>
@@ -52,7 +89,7 @@ const Sidebar = () => {
       <div className={`
         fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        lg:relative lg:transform-none h-screen
+        lg:relative lg:transform-none
       `}>
         {/* Logo */}
         <div className="p-4 border-b">
@@ -80,7 +117,7 @@ const Sidebar = () => {
 
             {/* Products Dropdown */}
             <div>
-              <button 
+              <button
                 onClick={toggleProductsDropdown}
                 className="w-full flex items-center justify-between space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-600"
               >
@@ -116,16 +153,16 @@ const Sidebar = () => {
                 A
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-700">Anand Singh</p>
+                <p className="text-sm font-medium text-gray-700">{username ? username : "username"}</p>
                 <p className="text-xs text-gray-500">Farmer</p>
               </div>
             </div>
-            
+
             <Link to="/settings" className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-green-50 text-gray-700 hover:text-green-600">
               <Settings size={20} />
               <span>Settings</span>
             </Link>
-            
+
             <div className="px-3">
               <LogoutButton />
             </div>
@@ -135,7 +172,7 @@ const Sidebar = () => {
 
       {/* Overlay for mobile */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden"
           onClick={toggleSidebar}
         />

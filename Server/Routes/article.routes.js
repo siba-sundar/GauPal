@@ -9,6 +9,7 @@ const articleController = require('../controller/article.controller.js');
 router.get('/:article-name',verifyToken, articleController.getArticleByName);
 router.get('/random/article',verifyToken, articleController.getRandomArticles);
 router.get('/all-article',verifyToken, articleController.getAllBreedArticles);
+router.get('/:category', verifyToken, )
 
 // breed details 
 

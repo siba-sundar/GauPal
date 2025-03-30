@@ -131,6 +131,20 @@ exports.getRandomArticles = async (req, res) => {
 };
 
 
+exports.getArticleByCategory = async ( req, res) =>{
+    const categoryName = req.params.categroy;
+
+    if(!categoryName){
+        return res.status(400).json({
+            error:'Article catrgory is required',
+            message:'Please provide catrgory',
+    })
+
+
+    const categroyRef = db.collection('articles').doc()
+    }
+}
+
 
 
 

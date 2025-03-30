@@ -13,6 +13,7 @@ import ChatBot from "./components/ChatBot.jsx"
 import Landing from './pages/Landing.jsx';
 import ExploreBreed from "./components/common/ExploreBreed.jsx"
 import Loading from './components/common/loading.jsx'; // Fixed capitalization
+import SettingsPage from './components/common/Settings.jsx';
 
 // farmer imports 
 import Farmer from "./layouts/Farmer.jsx"
@@ -317,6 +318,10 @@ const router = createBrowserRouter([
       {
         path:"disease-qna",
         element:<Diseaseqna/>
+      },
+      {
+        path:"settings",
+        element:<SettingsPage/>
       }
     ]
   },

@@ -16,5 +16,8 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/recommend/, '/recommend')
       }
     }
+  },
+  alias: {
+    '@shadcn/ui': '/node_modules/@shadcn/ui',  // Adjust this path if needed
   }
 })
