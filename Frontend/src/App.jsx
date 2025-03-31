@@ -15,7 +15,8 @@ import ExploreBreed from "./components/common/ExploreBreed.jsx"
 import Loading from './components/common/loading.jsx'; // Fixed capitalization
 import SettingsPage from './components/common/Settings.jsx';
 import ArticleListing from './components/common/ArticleListing.jsx';
-import Article from  "./components/common/Article.jsx"
+import Article from  "./components/common/Article.jsx";
+import Events from "./components/common/EventList.jsx"
 
 // farmer imports 
 import Farmer from "./layouts/Farmer.jsx"
@@ -332,6 +333,10 @@ const router = createBrowserRouter([
       {
         path:"article/:articleId",
         element:<Article/>
+      },
+      {
+        path:'events',
+        element:<Events/>
       }
     ]
   },

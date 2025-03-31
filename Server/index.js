@@ -42,6 +42,7 @@ const uploadRoutes = require('./Routes/upload.routes.js');
 const articles = require('./Routes/article.routes.js');
 const cattle = require('./Routes/cattle.routes.js');
 const disease = require('./Routes/disease.routes.js')
+const events = require('./Routes/event.routes.js')
 const { chatWithGemini, getGreeting }  = require('./ChatBot/geminiAiService.js');
 
 
@@ -58,6 +59,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/gaupal/article', articles);
+app.use('/gaupal/events',events);
 // chatbot
 app.post('/gauguru/chat', chatWithGemini);
 app.get('/gauguru/greeting', getGreeting);
