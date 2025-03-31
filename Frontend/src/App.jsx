@@ -14,6 +14,8 @@ import Landing from './pages/Landing.jsx';
 import ExploreBreed from "./components/common/ExploreBreed.jsx"
 import Loading from './components/common/loading.jsx'; // Fixed capitalization
 import SettingsPage from './components/common/Settings.jsx';
+import ArticleListing from './components/common/ArticleListing.jsx';
+import Article from  "./components/common/Article.jsx"
 
 // farmer imports 
 import Farmer from "./layouts/Farmer.jsx"
@@ -28,7 +30,7 @@ import Diseaseqna from "./components/farmer/DiseaseQnA.jsx"
 // buyer imports 
 import User from "./layouts/User.jsx"
 import UserDash from './components/user/UserDash_temp.jsx';
-import Article from  "./components/user/Article.jsx"
+
 import ItemList from "./components/user/ItemsList.jsx"
 import ItemDetail from "./components/user/ItemDetails.jsx"
 
@@ -322,6 +324,14 @@ const router = createBrowserRouter([
       {
         path:"settings",
         element:<SettingsPage/>
+      },
+      {
+        path: "article",
+        element:<ArticleListing/>
+      },
+      {
+        path:"article/:articleId",
+        element:<Article/>
       }
     ]
   },
@@ -358,6 +368,14 @@ const router = createBrowserRouter([
       {
         path:'product/:productId',
         element:<ItemDetail />
+      },
+      {
+        path: "article",
+        element:<ArticleListing/>
+      },
+      {
+        path:"article/:articleId",
+        element:<Article/>
       }
     ]
   },

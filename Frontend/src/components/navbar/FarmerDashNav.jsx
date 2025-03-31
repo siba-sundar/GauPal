@@ -26,7 +26,9 @@ const Sidebar = () => {
     { icon: Home, label: 'Dashboard', path: '/farmer/dashboard' },
     { icon: Home, label: 'Manage Cows', path: '/farmer/manage-cow' },
     { icon: ClipboardList, label: 'Orders', path: '/orders' },
-    { icon: ClipboardList, label: 'Predict Disease', path: '/farmer/disease' }
+    { icon: ClipboardList, label: 'Predict Disease', path: '/farmer/disease' },
+    { icon: ClipboardList, label: 'Articles', path: '/farmer/article' },
+    
   ];
 
   const productItems = [
@@ -56,7 +58,7 @@ const Sidebar = () => {
         });
 
         setUsername(response.data.fullName);
-        console.log(response);
+        
       } catch (err) {
         console.log('Error fetching data', err);
       }

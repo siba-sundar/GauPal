@@ -6,10 +6,10 @@ const articleController = require('../controller/article.controller.js');
 
 
 // article routes
-router.get('/:article-name',verifyToken, articleController.getArticleByName);
+router.get('/article/:articleId',verifyToken, articleController.getArticleById);
 router.get('/random/article',verifyToken, articleController.getRandomArticles);
 router.get('/all-article',verifyToken, articleController.getAllBreedArticles);
-router.get('/:category', verifyToken, )
+router.get('/category/:category', verifyToken, articleController.getArticlesByCategory );
 
 // breed details 
 

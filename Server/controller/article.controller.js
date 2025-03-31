@@ -5,20 +5,20 @@ const admin = require('firebase-admin');
 const db = admin.firestore();
 
 // Controller to fetch article by article name
-exports.getArticleByName = async (req, res) => {
+exports.getArticleById = async (req, res) => {
     try {
-        const articleName = req.params.articleName;
+        const articleId = req.params.articleId;
 
-        // Validate article name input
-        if (!articleName) {
+        // Validate article ID input
+        if (!articleId) {
             return res.status(400).json({
-                error: 'Article name is required',
-                message: 'Please provide a valid article name'
+                error: 'Article ID is required',
+                message: 'Please provide a valid article ID'
             });
         }
 
-        // Reference to the specific document using the article name as the key
-        const articleRef = db.collection('articles').doc(articleName);
+        // Reference to the specific document using the Firestore auto-generated ID
+        const articleRef = db.collection('articles').doc(articleId);
 
         // Fetch the document
         const doc = await articleRef.get();
@@ -27,15 +27,18 @@ exports.getArticleByName = async (req, res) => {
         if (!doc.exists) {
             return res.status(404).json({
                 error: 'Article Not Found',
-                message: `No article found with name: ${articleName}`,
-                requestedArticle: articleName
+                message: `No article found with ID: ${articleId}`,
+                requestedId: articleId
             });
         }
 
-        // Return the document data
+        // Return the document data with its ID
         res.status(200).json({
             message: 'Article retrieved successfully',
-            data: doc.data()
+            data: {
+                id: doc.id,
+                ...doc.data()
+            }
         });
     } catch (error) {
         console.error('Error fetching article:', error);
@@ -50,30 +53,62 @@ exports.getArticleByName = async (req, res) => {
 // Controller to fetch all breed articles
 exports.getAllBreedArticles = async (req, res) => {
     try {
-        // Fetch all documents from the articles collection
-        const snapshot = await db.collection('articles').get();
-
+        // Get query parameters with defaults
+        const category = req.query.category;
+        const limit = parseInt(req.query.limit) || 10;
+        const page = parseInt(req.query.page) || 1;
+        
+        // Calculate starting index for pagination
+        const startAt = (page - 1) * limit;
+        
+        // Create a query reference to the articles collection
+        let query = db.collection('articles');
+        
+        // Apply category filter if provided
+        if (category) {
+            query = query.where('category', '==', category);
+        }
+        
+        // Get the total count for pagination info
+        const countSnapshot = await query.count().get();
+        const totalArticles = countSnapshot.data().count;
+        
+        // Execute the query with pagination using limit and offset
+        const snapshot = await query
+            .limit(limit)
+            .offset(startAt)
+            .get();
+            
         // Check if any articles exist
         if (snapshot.empty) {
             return res.status(404).json({
                 error: 'No Articles Found',
-                message: 'No breed articles are currently available'
+                message: category 
+                    ? `No articles found with category: ${category}`
+                    : 'No breed articles are currently available'
             });
         }
-
+        
         // Map documents to an array
         const articles = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         }));
-
+        
+        // Return response with pagination details
         res.status(200).json({
             message: 'Articles retrieved successfully',
+            pagination: {
+                total: totalArticles,
+                currentPage: page,
+                totalPages: Math.ceil(totalArticles / limit),
+                perPage: limit
+            },
             count: articles.length,
             data: articles
         });
     } catch (error) {
-        console.error('Error fetching all articles:', error);
+        console.error('Error fetching articles:', error);
         res.status(500).json({
             error: 'Internal Server Error',
             message: 'Unable to retrieve articles',
@@ -81,7 +116,6 @@ exports.getAllBreedArticles = async (req, res) => {
         });
     }
 };
-
 
 // Controller to fetch 3 random breed articles
 exports.getRandomArticles = async (req, res) => {
@@ -131,20 +165,55 @@ exports.getRandomArticles = async (req, res) => {
 };
 
 
-exports.getArticleByCategory = async ( req, res) =>{
-    const categoryName = req.params.categroy;
-
-    if(!categoryName){
-        return res.status(400).json({
-            error:'Article catrgory is required',
-            message:'Please provide catrgory',
-    })
-
-
-    const categroyRef = db.collection('articles').doc()
+exports.getArticlesByCategory = async (req, res) => {
+    try {
+      const { category } = req.params;
+      
+      // Validate category parameter
+      if (!category) {
+        return res.status(400).json({ 
+          success: false, 
+          message: 'Category parameter is required' 
+        });
+      }
+  
+      // Query articles collection for documents with the specified category
+      const articlesSnapshot = await db.collection('articles')
+        .where('category', '==', category)
+        .get();
+      
+      // Check if no matching documents were found
+      if (articlesSnapshot.empty) {
+        return res.status(404).json({ 
+          success: false, 
+          message: `No articles found with category: ${category}` 
+        });
+      }
+  
+      // Convert the query snapshot to an array of article objects
+      const articles = [];
+      articlesSnapshot.forEach(doc => {
+        articles.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+  
+      // Return the articles as JSON response
+      return res.status(200).json({
+        success: true,
+        count: articles.length,
+        data: articles
+      });
+    } catch (error) {
+      console.error('Error fetching articles by category:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Server error while fetching articles',
+        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      });
     }
-}
-
+  };
 
 
 
