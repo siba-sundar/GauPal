@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import PlaceList from './components/PlaceList';
 
 const libraries = ["places"];
 
@@ -14,20 +15,41 @@ export default function GoogleMapView() {
     libraries
   });
 
+  const getPlaceDetails = (place) => {
+    return new Promise((resolve, reject) => {
+      const service = new window.google.maps.places.PlacesService(map);
+      service.getDetails(
+        {
+          placeId: place.place_id,
+          fields: ['formatted_phone_number', 'international_phone_number', 'website']
+        },
+        (result, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            resolve({ ...place, ...result });
+          } else {
+            resolve(place);
+          }
+        }
+      );
+    });
+  };
+
   const searchNearbyPlaces = useCallback(() => {
     if (!map || !mapRegion) return;
 
     const service = new window.google.maps.places.PlacesService(map);
     const request = {
       location: new window.google.maps.LatLng(mapRegion.lat, mapRegion.lng),
-      radius: 50000,
-      keyword: "gaushala|goshala|cow shelter|animal shelter|ngo|animal welfare",
+      radius: 15000,
+      keyword: "animal ngos|gaushala|goshala|animal shelter|animal refuge|animal rescue center",
     };
 
-    service.nearbySearch(request, (results, status) => {
+    service.nearbySearch(request, async (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.log("Places found:", results);
-        setNgos(results);
+        const detailedResults = await Promise.all(
+          results.map(place => getPlaceDetails(place))
+        );
+        setNgos(detailedResults);
       } else {
         console.error("Places search failed:", status);
       }
@@ -66,7 +88,7 @@ export default function GoogleMapView() {
 
   if (!isLoaded || loading) {
     return (
-      <div className="flex items-center justify-center h-[400px]">
+      <div className="flex items-center justify-center h-screen">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
         <p className="ml-2">Loading map...</p>
       </div>
@@ -74,16 +96,15 @@ export default function GoogleMapView() {
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Nearby Gaushalas and Animal Welfare Centers</h2>
-      <div className="rounded-lg overflow-hidden shadow-lg">
+    <div className="flex h-screen">
+      {/* Map Section - 70% width */}
+      <div className="w-[70%] h-screen">
         <GoogleMap
-          mapContainerClassName="w-full h-[400px]"
+          mapContainerClassName="w-full h-full"
           center={mapRegion}
           zoom={mapRegion.zoom}
           onLoad={onMapLoad}
         >
-          {/* User location marker */}
           <Marker
             position={{ lat: mapRegion.lat, lng: mapRegion.lng }}
             title="Your Location"
@@ -92,7 +113,6 @@ export default function GoogleMapView() {
             }}
           />
           
-          {/* NGO and Gaushala markers */}
           {ngos.map((place, index) => (
             <Marker
               key={index}
@@ -114,6 +134,16 @@ export default function GoogleMapView() {
             />
           ))}
         </GoogleMap>
+      </div>
+
+      {/* Places List Section - 30% width */}
+      <div className="w-[30%] h-screen bg-white shadow-lg">
+        <div className="p-4 border-b border-gray-200">
+          <h2 className="text-2xl font-bold">Nearby NGOs and Animal Shelter</h2>
+        </div>
+        <div className="overflow-y-auto h-[calc(100vh-80px)]">
+          {ngos.length > 0 && <PlaceList places={ngos} />}
+        </div>
       </div>
     </div>
   );
