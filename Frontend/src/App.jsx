@@ -360,7 +360,11 @@ const router = createBrowserRouter([
       },
       {
         path:"article/:article-id",
+<<<<<<< HEAD
         element:<Article articleData={sampleData}/>
+=======
+        element:<Article />
+>>>>>>> 4667cb5c76a274cd1627344df34000568d54bf97
       },
       {
         path:"breed",

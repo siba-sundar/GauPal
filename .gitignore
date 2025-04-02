@@ -24,8 +24,7 @@ dist-ssr
 *.sw?
 
 
-mobilenet-model*/
-models/*
+
 temp/
 .env
 googleCloud-serviceAccountKey.json
