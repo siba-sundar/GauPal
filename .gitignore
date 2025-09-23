@@ -1,0 +1,48 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+._*
+
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+
+=======
+\__pycache__
+\venv
+>>>>>>> 4667cb5c76a274cd1627344df34000568d54bf97
+=======
+__pycache__
+venv
+>>>>>>> 9d504660c2f7f99fb3bd18077c162d5d5abc7864
+temp/
+.env
+googleCloud-serviceAccountKey.json
+serviceAccountKey.json
+<<<<<<< HEAD
+=======
+
+model/
+
+>>>>>>> 9d504660c2f7f99fb3bd18077c162d5d5abc7864
