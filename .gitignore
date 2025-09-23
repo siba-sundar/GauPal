@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+./models*
 
 # Editor directories and files
 .vscode/*
@@ -24,25 +25,11 @@ dist-ssr
 *.sw?
 ._*
 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-
-=======
-\__pycache__
-\venv
->>>>>>> 4667cb5c76a274cd1627344df34000568d54bf97
-=======
 __pycache__
 venv
->>>>>>> 9d504660c2f7f99fb3bd18077c162d5d5abc7864
 temp/
 .env
 googleCloud-serviceAccountKey.json
 serviceAccountKey.json
-<<<<<<< HEAD
-=======
-
 model/
-
->>>>>>> 9d504660c2f7f99fb3bd18077c162d5d5abc7864
+models/

@@ -24,8 +24,8 @@ import ChatbotComponent from "../ChatBot.jsx";
 const UserDashboard = () => {
   const [isChatMinimized, setIsChatMinimized] = useState(true);
   const [isChatClosed, setIsChatClosed] = useState(false);
-  const [_featuredBreeds, setFeaturedBreeds] = useState([]);
-  const [_selectedBreed, setSelectedBreed] = useState(null);
+  const [featuredBreeds, setFeaturedBreeds] = useState([]);
+  const [selectedBreed, setSelectedBreed] = useState(null);
   const [_trendingProducts, setTrendingProducts] = useState([]);
   const [productFilters, _setProductFilters] = useState({
     category: "Dairy",
@@ -229,7 +229,7 @@ const UserDashboard = () => {
   };
 
   // Handle learn more for breed
-  const _handleLearnMore = (breed) => {
+  const handleLearnMore = (breed) => {
     setSelectedBreed(breed);
   };
 
@@ -291,6 +291,13 @@ const UserDashboard = () => {
 
   return (
     <div className="relative min-h-screen">
+      {/* Breed Details Modal */}
+      {selectedBreed && (
+        <BreedDetailsModal
+          breed={selectedBreed}
+          onClose={() => setSelectedBreed(null)}
+        />
+      )}
       <div className="min-h-screen bg-gray-50">
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -402,7 +409,7 @@ const UserDashboard = () => {
             </div>
           </div>
 
-          {/* Learn About Cows */}
+          {/* Learn About Cows & Featured Breeds */}
           <div className="bg-green-50 rounded-lg p-8 mb-12">
             <div className="flex items-center mb-4">
               <Lightbulb size={24} className="text-green-600 mr-2" />
@@ -414,6 +421,46 @@ const UserDashboard = () => {
               Discover the rich heritage of India's indigenous cow breeds, their
               unique characteristics, and the benefits of their products.
             </p>
+            {/* Featured Breeds Section */}
+            {featuredBreeds.length > 0 && (
+              <div className="mb-8">
+                <h3 className="text-xl font-bold text-gray-800 mb-4">
+                  Featured Breeds
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                  {featuredBreeds.map((breed, idx) => (
+                    <div
+                      key={breed.id || idx}
+                      className="bg-white rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow duration-300 cursor-pointer"
+                      onClick={() => handleLearnMore(breed)}
+                    >
+                      <img
+                        src={breed.introduction?.image?.url}
+                        alt={breed.breed}
+                        className="h-32 w-32 object-cover rounded-full mb-3 border-4 border-green-100"
+                      />
+                      <h4 className="font-semibold text-gray-800 mb-1 capitalize">
+                        {breed.breed}
+                      </h4>
+                      <p className="text-gray-500 text-sm text-center line-clamp-2">
+                        {breed.introduction?.content?.slice(0, 60)}
+                        {breed.introduction?.content?.length > 60 ? "..." : ""}
+                      </p>
+                      <button
+                        className="mt-3 text-green-600 hover:text-green-800 font-medium flex items-center text-sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleLearnMore(breed);
+                        }}
+                      >
+                        Learn More <ChevronRight size={16} className="ml-1" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Info Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-white rounded-lg p-4 flex items-center">
                 <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 mr-3">
