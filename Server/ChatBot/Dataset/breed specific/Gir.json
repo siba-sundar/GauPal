@@ -1,0 +1,166 @@
+[
+    {
+        "text_input": "What is the origin of the Gir breed?",
+        "output": "The Gir breed originates from Gujarat, India."
+      },
+      {
+        "text_input": "What is the primary use of the Gir breed?",
+        "output": "The Gir breed is primarily used for high milk production."
+      },
+      {
+        "text_input": "What is a unique feature of the Gir breed?",
+        "output": "The Gir breed has a distinct convex forehead and long ears."
+      },
+      {
+        "text_input": "What is the average milk yield of Gir cows?",
+        "output": "Gir cows produce an average of 2,000 to 3,000 liters of milk per lactation."
+      },
+      {
+        "text_input": "What is the origin of the Sahiwal breed?",
+        "output": "The Sahiwal breed originates from Punjab, India, and Pakistan."
+      },
+      {
+        "text_input": "What is the primary use of the Sahiwal breed?",
+        "output": "The Sahiwal breed is primarily used for high milk production."
+      },
+      {
+        "text_input": "What makes Sahiwal cows suitable for tropical climates?",
+        "output": "Sahiwal cows have high heat tolerance and disease resistance."
+      },
+      {
+        "text_input": "What is the average milk yield of Sahiwal cows?",
+        "output": "Sahiwal cows produce an average of 2,500 to 3,000 liters of milk per lactation."
+      },
+      {
+        "text_input": "What is the origin of the Red Sindhi breed?",
+        "output": "The Red Sindhi breed originates from Sindh, Pakistan."
+      },
+      {
+        "text_input": "What is the primary use of the Red Sindhi breed?",
+        "output": "The Red Sindhi breed is primarily used for milk production."
+      },
+      {
+        "text_input": "What is the color of Red Sindhi cows?",
+        "output": "Red Sindhi cows are reddish-brown in color."
+      },
+      {
+        "text_input": "What is the average milk yield of Red Sindhi cows?",
+        "output": "Red Sindhi cows produce an average of 1,500 to 2,500 liters of milk per lactation."
+      },
+      {
+        "text_input": "What is the origin of the Tharparkar breed?",
+        "output": "The Tharparkar breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Tharparkar breed?",
+        "output": "The Tharparkar breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the characteristic color of Tharparkar cows?",
+        "output": "Tharparkar cows are white or light gray in color."
+      },
+      {
+        "text_input": "What is the origin of the Rathi breed?",
+        "output": "The Rathi breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Rathi breed?",
+        "output": "The Rathi breed is primarily used for milk production."
+      },
+      {
+        "text_input": "What is the color pattern of Rathi cows?",
+        "output": "Rathi cows have a brown body with white patches."
+      },
+      {
+        "text_input": "What is the origin of the Ongole breed?",
+        "output": "The Ongole breed originates from Andhra Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Ongole breed?",
+        "output": "The Ongole breed is used for draught work and bullock power."
+      },
+      {
+        "text_input": "What is the origin of the Gaolao breed?",
+        "output": "The Gaolao breed originates from Maharashtra and Madhya Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Gaolao breed?",
+        "output": "The Gaolao breed is used for both draft work and milk production."
+      },
+      {
+        "text_input": "What is the origin of the Deoni breed?",
+        "output": "The Deoni breed originates from Maharashtra, India."
+      },
+      {
+        "text_input": "What is the primary use of the Deoni breed?",
+        "output": "The Deoni breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the distinctive feature of the Deoni breed?",
+        "output": "Deoni cows have a dual-color coat of white with black or brown patches."
+      },
+      {
+        "text_input": "What is the origin of the Krishna Valley breed?",
+        "output": "The Krishna Valley breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "What is the primary use of the Krishna Valley breed?",
+        "output": "The Krishna Valley breed is used for draught work and milk production."
+      },
+      {
+        "text_input": "What is the origin of the Kankrej breed?",
+        "output": "The Kankrej breed originates from Gujarat and Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Kankrej breed?",
+        "output": "The Kankrej breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the origin of the Hariana breed?",
+        "output": "The Hariana breed originates from Haryana, India."
+      },
+      {
+        "text_input": "What is the primary use of the Hariana breed?",
+        "output": "The Hariana breed is used for both draught work and milk production."
+      },
+      {
+        "text_input": "What is the origin of the Amrit Mahal breed?",
+        "output": "The Amrit Mahal breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "What is the primary use of the Amrit Mahal breed?",
+        "output": "The Amrit Mahal breed is used mainly for draught purposes."
+      },
+      {
+        "text_input": "What is the origin of the Hallikar breed?",
+        "output": "The Hallikar breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "What is the primary use of the Hallikar breed?",
+        "output": "The Hallikar breed is used mainly for draught purposes."
+      },
+      {
+        "text_input": "What is the origin of the Vechur breed?",
+        "output": "The Vechur breed originates from Kerala, India."
+      },
+      {
+        "text_input": "What is the significance of the Vechur breed?",
+        "output": "The Vechur breed is the world's smallest cattle breed."
+      },
+      {
+        "text_input": "What is the primary use of the Vechur breed?",
+        "output": "The Vechur breed is used for milk production, especially in small-scale farming."
+      },
+      {
+        "text_input": "What is the origin of the Punganur breed?",
+        "output": "The Punganur breed originates from Andhra Pradesh, India."
+      },
+      {
+        "text_input": "What is a unique feature of the Punganur breed?",
+        "output": "The Punganur breed is one of the world's smallest cattle breeds."
+      },
+      {
+        "text_input": "What is the primary use of the Punganur breed?",
+        "output": "The Punganur breed is used for milk production."
+      }
+]

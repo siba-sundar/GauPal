@@ -1,0 +1,744 @@
+[
+    {
+      "text_input": "What are the primary uses of Kankrej cattle?",
+      "output": "Kankrej cattle are primarily used for milk production and draft work."
+    },
+    {
+      "text_input": "What is the average milk yield of Kankrej cows?",
+      "output": "Kankrej cows produce around 10-12 liters of milk per day."
+    },
+    {
+      "text_input": "What common disease affects Kankrej cows, and how is it treated?",
+      "output": "Kankrej cows are prone to foot-and-mouth disease, which can be cured through vaccination and proper hygiene."
+    },
+    {
+      "text_input": "Where does the Gir breed originate from?",
+      "output": "The Gir breed originates from Gujarat, India."
+    },
+    {
+      "text_input": "What are the distinctive characteristics of Gir cattle?",
+      "output": "Gir cattle are known for their high milk yield and disease resistance, making them suitable for tropical climates."
+    },
+    {
+      "text_input": "What is the common disease affecting Gir cows and how is it treated?",
+      "output": "Gir cows are commonly affected by mastitis, which can be treated with antibiotics and good milking hygiene."
+    },
+    {
+      "text_input": "What are the origins of the Amritmahal breed?",
+      "output": "The Amritmahal breed originates from Karnataka, India."
+    },
+    {
+      "text_input": "What are Amritmahal cows commonly used for?",
+      "output": "Amritmahal cows are primarily used for draft work, especially for carrying heavy loads."
+    },
+    {
+      "text_input": "What is the common disease affecting Amritmahal cows?",
+      "output": "Amritmahal cows are prone to parasitic infections, which can be treated using anti-parasitic medications."
+    },
+    {
+      "text_input": "What is the origin of the Ongole breed?",
+      "output": "The Ongole breed originates from Andhra Pradesh, India."
+    },
+    {
+      "text_input": "What are the distinctive characteristics of Ongole cattle?",
+      "output": "Ongole cattle are known for their large size, muscular build, and suitability for draft work."
+    },
+    {
+      "text_input": "What common disease affects Ongole cows, and how can it be cured?",
+      "output": "Ongole cows can suffer from brucellosis, which can be treated with antibiotics and preventive vaccination."
+    },
+    {
+      "text_input": "What is the origin of the Sahiwal breed?",
+      "output": "The Sahiwal breed originates from Punjab, India and Pakistan."
+    },
+    {
+      "text_input": "What are Sahiwal cows known for?",
+      "output": "Sahiwal cows are known for their high milk yield and adaptability to both tropical and cold climates."
+    },
+    {
+      "text_input": "What common disease affects Sahiwal cows, and what is the treatment?",
+      "output": "Sahiwal cows can suffer from tick infestations, which are treated using acaricides and regular grooming."
+    },
+    {
+      "text_input": "What is the origin of the Red Sindhi breed?",
+      "output": "Red Sindhi cattle originate from the Sindh region, which is now part of Pakistan."
+    },
+    {
+      "text_input": "What are the uses of Red Sindhi cattle?",
+      "output": "Red Sindhi cattle are primarily used for milk production and are highly productive in tropical climates."
+    },
+    {
+      "text_input": "What disease affects Red Sindhi cows, and how can it be cured?",
+      "output": "Red Sindhi cows can be affected by mastitis, which can be treated with antibiotics and regular cleaning of udders."
+    },
+    {
+      "text_input": "Where does the Tharparkar breed come from?",
+      "output": "Tharparkar cattle come from the Thar Desert region in Rajasthan, India."
+    },
+    {
+      "text_input": "What are the characteristics of Tharparkar cows?",
+      "output": "Tharparkar cows are dual-purpose cattle, used for both milk production and draft work. They are drought-resistant."
+    },
+    {
+      "text_input": "What disease commonly affects Tharparkar cows, and how is it treated?",
+      "output": "Tharparkar cows are susceptible to foot-and-mouth disease, which is treated with vaccination and good hygiene practices."
+    },
+    {
+      "text_input": "Where does the Hariana breed originate from?",
+      "output": "The Hariana breed originates from Haryana, India."
+    },
+    {
+      "text_input": "What are the primary uses of Hariana cattle?",
+      "output": "Hariana cattle are used for both milk production and draft work."
+    },
+    {
+      "text_input": "What disease commonly affects Hariana cows, and what is the treatment?",
+      "output": "Hariana cows are susceptible to mastitis, which can be treated with antibiotics and regular udder hygiene."
+    },
+    {
+      "text_input": "What is the origin of the Malvi breed?",
+      "output": "The Malvi breed originates from Madhya Pradesh, India."
+    },
+    {
+      "text_input": "What are the characteristics of Malvi cattle?",
+      "output": "Malvi cattle are known for their strength and are mainly used for plowing and other agricultural activities."
+    },
+    {
+      "text_input": "What disease affects Malvi cows, and how is it treated?",
+      "output": "Malvi cows can suffer from parasitic infections, which can be cured using anti-parasitic medications."
+    },
+    {
+      "text_input": "Where does the Rathi breed originate from?",
+      "output": "The Rathi breed originates from Rajasthan, India."
+    },
+    {
+      "text_input": "What are the main uses of Rathi cattle?",
+      "output": "Rathi cattle are primarily used for milk production, as they are known for their high milk yield."
+    },
+    {
+      "text_input": "What disease commonly affects Rathi cows, and how is it cured?",
+      "output": "Rathi cows are prone to mastitis, which can be treated with antibiotics and proper hygiene."
+    },
+    {
+      "text_input": "Where do Khillar cattle come from?",
+      "output": "Khillar cattle originate from Maharashtra, India."
+    },
+    {
+      "text_input": "What are the uses of Khillar cattle?",
+      "output": "Khillar cattle are used primarily for draft work due to their strength and stamina."
+    },
+    {
+      "text_input": "What disease commonly affects Khillar cows, and what is the cure?",
+      "output": "Khillar cows can suffer from foot-and-mouth disease, which can be treated through vaccination and good care."
+    },
+    {
+      "text_input": "What is the origin of the Krishna Valley breed?",
+      "output": "The Krishna Valley breed originates from the Krishna River valley in Karnataka, India."
+    },
+    {
+      "text_input": "What are Krishna Valley cows known for?",
+      "output": "Krishna Valley cows are dual-purpose cattle, known for both milk production and draft capabilities."
+    },
+    {
+      "text_input": "What disease affects Krishna Valley cows, and how is it treated?",
+      "output": "Krishna Valley cows are prone to tick infestations, which can be treated with acaricides and regular grooming."
+    },
+    {
+      "text_input": "Where does the Gangatiri breed originate from?",
+      "output": "The Gangatiri breed originates from the Gangetic plains in Uttar Pradesh, India."
+    },
+    {
+      "text_input": "What are the primary uses of Gangatiri cattle?",
+      "output": "Gangatiri cattle are primarily used for milk production."
+    },
+    {
+      "text_input": "What common disease affects Gangatiri cows, and how is it treated?",
+      "output": "Gangatiri cows are susceptible to brucellosis, which can be treated with antibiotics and preventive vaccination."
+    },
+    {
+      "text_input": "Where does the Punganur breed come from?",
+      "output": "The Punganur breed originates from Andhra Pradesh, India."
+    },
+    {
+      "text_input": "What are the distinctive characteristics of Punganur cattle?",
+      "output": "Punganur cattle are small in size and are known for their ability to thrive in drought conditions."
+    },
+    {
+      "text_input": "What common disease affects Punganur cows, and how is it treated?",
+      "output": "Punganur cows are prone to parasitic infections, which can be treated using anti-parasitic medications."
+    },
+    {
+        "text_input": "What are the primary characteristics of the Kankrej breed?",
+        "output": "Kankrej cows are dual-purpose cattle, known for their milk production and draft capabilities. They are resistant to diseases and can thrive in arid environments."
+      },
+      {
+        "text_input": "Which regions are the home of the Ongole breed?",
+        "output": "Ongole cattle originate from Andhra Pradesh, India."
+      },
+      {
+        "text_input": "How much milk does a typical Gir cow produce per day?",
+        "output": "A typical Gir cow can produce around 12-15 liters of milk per day."
+      },
+      {
+        "text_input": "What are the unique characteristics of Sahiwal cows?",
+        "output": "Sahiwal cows are known for their high milk yield and resistance to heat, making them suitable for tropical climates."
+      },
+      {
+        "text_input": "What disease commonly affects Khillar cattle?",
+        "output": "Khillar cattle are prone to foot-and-mouth disease, which is prevented by regular vaccinations."
+      },
+      {
+        "text_input": "How are Amritmahal cows commonly used?",
+        "output": "Amritmahal cows are primarily used for heavy draft work and agricultural labor."
+      },
+      {
+        "text_input": "What is the origin of the Krishna Valley breed?",
+        "output": "The Krishna Valley breed originates from Karnataka, India, in the Krishna River valley."
+      },
+      {
+        "text_input": "What is the typical milk yield of a Red Sindhi cow?",
+        "output": "A Red Sindhi cow produces about 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "What are some common diseases in Gir cattle?",
+        "output": "Gir cattle can suffer from diseases like mastitis and tick infestations."
+      },
+      {
+        "text_input": "What are Tharparkar cows primarily known for?",
+        "output": "Tharparkar cows are known for their high milk production and their ability to survive in desert conditions."
+      },
+      {
+        "text_input": "What is the main use of Gangatiri cattle?",
+        "output": "Gangatiri cattle are primarily used for milk production."
+      },
+      {
+        "text_input": "What is a common disease in Hariana cows, and how is it treated?",
+        "output": "Hariana cows are commonly affected by mastitis, which is treated with antibiotics and proper milking hygiene."
+      },
+      {
+        "text_input": "What is the origin of the Rathi breed?",
+        "output": "The Rathi breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What are Punganur cows best known for?",
+        "output": "Punganur cows are known for their small size and ability to survive in drought conditions."
+      },
+      {
+        "text_input": "What are the primary uses of Ongole cattle?",
+        "output": "Ongole cattle are used for draft work and beef production."
+      },
+      {
+        "text_input": "What is the average milk production of a Tharparkar cow?",
+        "output": "Tharparkar cows produce around 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "What is a common disease affecting Sahiwal cows, and how is it treated?",
+        "output": "Sahiwal cows can suffer from foot-and-mouth disease, which is treated with vaccination and proper hygiene."
+      },
+      {
+        "text_input": "What is the average milk yield of a Hariana cow?",
+        "output": "A Hariana cow can produce around 10-15 liters of milk per day."
+      },
+      {
+        "text_input": "What are the main characteristics of the Amritmahal breed?",
+        "output": "Amritmahal cattle are known for their strength and endurance, making them ideal for draft work."
+      },
+      {
+        "text_input": "What disease commonly affects Red Sindhi cows?",
+        "output": "Red Sindhi cows are prone to mastitis, which can be treated with proper milking hygiene and antibiotics."
+      },
+      {
+        "text_input": "What is the origin of the Khillar breed?",
+        "output": "Khillar cattle originate from Maharashtra, India."
+      },
+      {
+        "text_input": "How is foot-and-mouth disease treated in Ongole cows?",
+        "output": "Foot-and-mouth disease in Ongole cows is treated with vaccines and regular health checkups."
+      },
+      {
+        "text_input": "What are the uses of Kankrej cattle?",
+        "output": "Kankrej cattle are used for both milk production and draft work."
+      },
+      {
+        "text_input": "What common disease affects Krishna Valley cows?",
+        "output": "Krishna Valley cows are prone to tick infestations, which are treated with acaricides and regular grooming."
+      },
+      {
+        "text_input": "What is the average milk yield of the Rathi breed?",
+        "output": "Rathi cows can produce around 6-8 liters of milk per day."
+      },
+      {
+        "text_input": "What are the primary uses of the Gangatiri breed?",
+        "output": "Gangatiri cattle are used for both milk production and light draft work."
+      },
+      {
+        "text_input": "What disease is common among Punganur cows?",
+        "output": "Punganur cows can suffer from parasitic infections, which can be treated with anti-parasitic medications."
+      },
+      {
+        "text_input": "What are the origins of the Sahiwal breed?",
+        "output": "Sahiwal cattle originate from Punjab, India and Pakistan."
+      },
+      {
+        "text_input": "What is the primary disease affecting Amritmahal cattle?",
+        "output": "Amritmahal cattle are susceptible to parasitic infections, which are treated with anti-parasitic medications."
+      },
+      {
+        "text_input": "How much milk does a typical Krishna Valley cow produce?",
+        "output": "Krishna Valley cows can produce around 6-8 liters of milk per day."
+      },
+      {
+        "text_input": "What disease affects Rathi cattle and how is it treated?",
+        "output": "Rathi cattle are prone to mastitis, which is treated with proper hygiene and antibiotics."
+      },
+      {
+        "text_input": "What is the origin of the Kankrej breed?",
+        "output": "Kankrej cattle originate from Gujarat and Rajasthan, India."
+      },
+      {
+        "text_input": "What is the common disease in Tharparkar cattle?",
+        "output": "Tharparkar cattle can suffer from foot-and-mouth disease, which is treated with vaccination and good hygiene."
+      },
+      {
+        "text_input": "How are Punganur cows suited for drought conditions?",
+        "output": "Punganur cows are highly drought-resistant due to their small size and adaptability to harsh environments."
+      },
+      {
+        "text_input": "What are the primary characteristics of the Gir breed?",
+        "output": "Gir cattle are known for their high milk yield and resistance to diseases, especially in tropical climates."
+      },
+      {
+        "text_input": "What is the main disease affecting Ongole cows, and how is it cured?",
+        "output": "Ongole cows are susceptible to brucellosis, which can be treated with antibiotics and preventive vaccination."
+      },
+      {
+        "text_input": "What is the common disease affecting Hariana cows?",
+        "output": "Hariana cows are prone to mastitis, which is treated with proper hygiene and antibiotics."
+      },
+      {
+        "text_input": "What is the distinctive appearance of the Gir breed?",
+        "output": "Gir cattle are usually red or spotted with a hump and long, pendulous ears."
+      },
+      {
+        "text_input": "What is the average milk yield of a Sahiwal cow?",
+        "output": "Sahiwal cows can produce around 15-18 liters of milk per day."
+      },
+      {
+        "text_input": "How much milk does a Red Sindhi cow produce per day?",
+        "output": "Red Sindhi cows produce about 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "What are Krishna Valley cows primarily used for?",
+        "output": "Krishna Valley cows are used for both milk production and draft work."
+      },
+      {
+        "text_input": "How are tick infestations treated in Sahiwal cows?",
+        "output": "Tick infestations in Sahiwal cows are treated with acaricides and regular grooming."
+      },
+      {
+        "text_input": "What is the milk yield of a Gangatiri cow?",
+        "output": "A Gangatiri cow can produce around 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "What are the uses of Khillar cattle?",
+        "output": "Khillar cattle are primarily used for draft work due to their strength and endurance."
+      },
+      {
+        "text_input": "What is a common disease affecting Gir cows?",
+        "output": "Gir cows can be affected by mastitis, which is treated with antibiotics and proper udder hygiene."
+      },
+      {
+        "text_input": "What are the origins of the Punganur breed?",
+        "output": "The Punganur breed originates from Andhra Pradesh, India."
+      },
+      {
+        "text_input": "What is the main use of Amritmahal cattle?",
+        "output": "Amritmahal cattle are primarily used for heavy draft work."
+      },
+      {
+        "text_input": "What is the primary disease in Red Sindhi cows?",
+        "output": "Red Sindhi cows are susceptible to mastitis, treated with proper milking techniques and antibiotics."
+      },
+      {
+        "text_input": "What is the origin of the Amritmahal breed?",
+        "output": "The Amritmahal breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "Which Indian breed is well-suited for arid environments and what are its uses?",
+        "output": "The Kankrej breed is well-suited for arid environments and is used for both milk production and draft work."
+      },
+      {
+        "text_input": "What are the characteristics of the Gir breed?",
+        "output": "Gir cows are known for their high milk yield and resistance to diseases. They have a distinctive red to white coat with a hump."
+      },
+      {
+        "text_input": "What is the primary use of the Hallikar breed?",
+        "output": "The Hallikar breed is primarily used for draft work."
+      },
+      {
+        "text_input": "What is the common disease found in Rathi cows, and how is it treated?",
+        "output": "Rathi cows can be prone to mastitis, which is treated with proper udder hygiene and antibiotics."
+      },
+      {
+        "text_input": "Where does the Kangayam breed originate?",
+        "output": "The Kangayam breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What is the average milk yield of the Hariana breed?",
+        "output": "The Hariana breed produces about 10-15 liters of milk per day."
+      },
+      {
+        "text_input": "Which breed is native to Uttar Pradesh and Madhya Pradesh?",
+        "output": "The Gaolao breed is native to Uttar Pradesh and Madhya Pradesh."
+      },
+      {
+        "text_input": "What is the appearance of the Deoni breed?",
+        "output": "The Deoni breed has a white coat with black spots and is medium to large in size."
+      },
+      {
+        "text_input": "What disease commonly affects the Ongole breed?",
+        "output": "Ongole cattle are susceptible to foot-and-mouth disease, which is prevented through vaccination."
+      },
+      {
+        "text_input": "What are the typical characteristics of the Bachaur breed?",
+        "output": "The Bachaur breed is known for its disease resistance and is primarily used for draft work in Bihar."
+      },
+      {
+        "text_input": "How much milk does a Red Sindhi cow produce on average?",
+        "output": "A Red Sindhi cow produces approximately 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "Which breed is indigenous to Gujarat and Rajasthan?",
+        "output": "The Kankrej breed is indigenous to Gujarat and Rajasthan."
+      },
+      {
+        "text_input": "What is the primary use of the Dangi breed?",
+        "output": "The Dangi breed is primarily used for draft work in Maharashtra and Madhya Pradesh."
+      },
+      {
+        "text_input": "What are the health benefits of the milk produced by the Malnad Gidda breed?",
+        "output": "The Malnad Gidda breed produces nutrient-rich A2 milk, which is considered healthier for digestion."
+      },
+      {
+        "text_input": "Where is the Tharparkar breed predominantly found?",
+        "output": "The Tharparkar breed is predominantly found in Rajasthan, India."
+      },
+      {
+        "text_input": "What are the physical characteristics of the Red Kandhari breed?",
+        "output": "Red Kandhari cattle have a reddish-brown coat and are medium-sized with a muscular build."
+      },
+      {
+        "text_input": "What disease commonly affects Sahiwal cows and what is the cure?",
+        "output": "Sahiwal cows can be affected by bloat, which can be treated by relieving gas buildup and dietary adjustments."
+      },
+      {
+        "text_input": "What is the common use of the Ponwar breed?",
+        "output": "The Ponwar breed is primarily used for draft work in Uttar Pradesh."
+      },
+      {
+        "text_input": "Where does the Umblachery breed originate from?",
+        "output": "The Umblachery breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "How much milk does a Mewati cow produce daily?",
+        "output": "A Mewati cow produces around 8-10 liters of milk per day."
+      },
+      {
+        "text_input": "Which breed is known for its disease resistance and ability to adapt to hilly terrains?",
+        "output": "The Siri breed is known for its disease resistance and ability to adapt to hilly terrains in Sikkim and West Bengal."
+      },
+      {
+        "text_input": "What are the distinctive features of the Vechur breed?",
+        "output": "The Vechur breed is the smallest cattle breed in the world, known for its small size and high milk fat content."
+      },
+      {
+        "text_input": "Which Indian breed is best suited for draft work in rice paddies?",
+        "output": "The Ponwar breed is well-suited for draft work in rice paddies."
+      },
+      {
+        "text_input": "What is the origin of the Bargur breed?",
+        "output": "The Bargur breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What disease is commonly found in Khariar cattle?",
+        "output": "Khariar cattle are prone to tick infestations, which can be managed through acaricides and regular grooming."
+      },
+      {
+        "text_input": "How is foot-and-mouth disease treated in Indian cattle?",
+        "output": "Foot-and-mouth disease is treated through vaccination and proper hygiene practices."
+      },
+      {
+        "text_input": "Which breed is commonly found in Uttar Pradesh and is known for its milk production?",
+        "output": "The Kherigarh breed is commonly found in Uttar Pradesh and is known for its moderate milk production."
+      },
+      {
+        "text_input": "What is the average milk yield of the Punganur breed?",
+        "output": "The Punganur breed produces around 3-5 liters of milk per day."
+      },
+      {
+        "text_input": "Which breed is known for its resilience in drought conditions?",
+        "output": "The Nagori breed is known for its resilience in drought conditions."
+      },
+      {
+        "text_input": "What is the primary use of the Kangayam breed?",
+        "output": "The Kangayam breed is primarily used for draft work and agricultural activities."
+      },
+      {
+        "text_input": "What is a common disease in Pulikulam cattle, and how is it treated?",
+        "output": "Pulikulam cattle are prone to parasitic infections, which are treated with deworming agents and proper pasture management."
+      },
+      {
+        "text_input": "Where is the Kosali breed predominantly found?",
+        "output": "The Kosali breed is predominantly found in Chhattisgarh, India."
+      },
+      {
+        "text_input": "What are the distinctive characteristics of the Motu breed?",
+        "output": "The Motu breed is known for its small size and adaptability to hilly terrains in Orissa and Chhattisgarh."
+      },
+      {
+        "text_input": "What is the primary use of the Belahi breed?",
+        "output": "The Belahi breed is used for both milk production and draft work in Haryana and Chandigarh."
+      },
+      {
+        "text_input": "Which breed is known for its ability to work in hilly and forested areas?",
+        "output": "The Malnad Gidda breed is known for its ability to work in hilly and forested areas in Karnataka."
+      },
+      {
+        "text_input": "What are the common diseases in Gangatiri cattle, and how are they treated?",
+        "output": "Gangatiri cattle are prone to foot rot, which is treated with proper hoof care and antibiotics."
+      },
+      {
+        "text_input": "Which breed produces nutrient-rich A2 milk?",
+        "output": "The Malnad Gidda breed produces nutrient-rich A2 milk."
+      },
+      {
+        "text_input": "What is the primary use of the Binjharpuri breed?",
+        "output": "The Binjharpuri breed is primarily used for draft work in Orissa."
+      },
+      {
+        "text_input": "Where does the Masilum breed originate from?",
+        "output": "The Masilum breed originates from Meghalaya, India."
+      },
+      {
+        "text_input": "What are the characteristics of the Siri breed?",
+        "output": "The Siri breed is known for its small size, disease resistance, and adaptability to mountainous regions in Sikkim and West Bengal."
+      },
+      {
+        "text_input": "What is the average milk yield of the Lakhimi breed?",
+        "output": "The Lakhimi breed produces around 5-7 liters of milk per day."
+      },
+      {
+        "text_input": "What is the origin of the Ladakhi breed?",
+        "output": "The Ladakhi breed originates from Jammu and Kashmir."
+      },
+      {
+        "text_input": "Which breed is resistant to diseases and known for high milk fat content?",
+        "output": "The Vechur breed is resistant to diseases and known for its high milk fat content."
+      },
+      {
+        "text_input": "How much milk does a Ponwar cow produce daily?",
+        "output": "A Ponwar cow produces about 6-8 liters of milk per day."
+      },
+      {
+        "text_input": "What disease affects the Shweta Kapila breed, and what is the cure?",
+        "output": "Shweta Kapila cattle are prone to mastitis, which is treated with antibiotics and good udder hygiene."
+      },
+      {
+        "text_input": "Which breed is commonly used in Gujarat for both milk production and draft work?",
+        "output": "The Kankrej breed is commonly used in Gujarat for both milk production and draft work."
+      },
+      {
+        "text_input": "What is the origin of the Gir breed?",
+        "output": "The Gir breed originates from Gujarat, India."
+      },
+      {
+        "text_input": "What is the primary use of the Kankrej breed?",
+        "output": "The Kankrej breed is primarily used for both milk production and draft work."
+      },
+      {
+        "text_input": "What are the typical characteristics of the Ongole breed?",
+        "output": "Ongole cattle are known for their strength, muscular build, and resistance to tropical diseases."
+      },
+      {
+        "text_input": "Which breed is native to Maharashtra and known for its draft capabilities?",
+        "output": "The Khillar breed is native to Maharashtra and is known for its draft capabilities."
+      },
+      {
+        "text_input": "How much milk does the Tharparkar breed produce daily?",
+        "output": "The Tharparkar breed produces about 8-12 liters of milk per day."
+      },
+      {
+        "text_input": "What is the origin of the Deoni breed?",
+        "output": "The Deoni breed originates from Maharashtra, India."
+      },
+      {
+        "text_input": "Which breed is known for its adaptability to hot and humid climates?",
+        "output": "The Sahiwal breed is known for its adaptability to hot and humid climates."
+      },
+      {
+        "text_input": "What is the primary use of the Amritmahal breed?",
+        "output": "The Amritmahal breed is primarily used for draft work in Karnataka."
+      },
+      {
+        "text_input": "What are the characteristics of the Hallikar breed?",
+        "output": "Hallikar cattle are known for their strength, endurance, and adaptability to rough terrain."
+      },
+      {
+        "text_input": "What disease is common in Red Kandhari cows, and how is it treated?",
+        "output": "Red Kandhari cows can suffer from foot-and-mouth disease, which is treated with vaccination and proper sanitation."
+      },
+      {
+        "text_input": "Where does the Rathi breed originate?",
+        "output": "The Rathi breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the average milk yield of the Hariana breed?",
+        "output": "The Hariana breed produces around 10-15 liters of milk per day."
+      },
+      {
+        "text_input": "What are the distinguishing features of the Gaolao breed?",
+        "output": "The Gaolao breed is medium-sized, with a white to grey coat, and is known for its calm temperament."
+      },
+      {
+        "text_input": "Which breed is known for producing high-fat milk?",
+        "output": "The Gir breed is known for producing high-fat milk, making it ideal for dairy products."
+      },
+      {
+        "text_input": "What is the origin of the Nagori breed?",
+        "output": "The Nagori breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "Which breed is known for its high endurance and speed in draft work?",
+        "output": "The Kangayam breed is known for its high endurance and speed in draft work."
+      },
+      {
+        "text_input": "What is a common disease in Khariar cattle?",
+        "output": "Khariar cattle are prone to parasitic infestations, which are treated with regular deworming and proper pasture management."
+      },
+      {
+        "text_input": "What is the primary use of the Gangatiri breed?",
+        "output": "The Gangatiri breed is used for both milk production and draft work."
+      },
+      {
+        "text_input": "What are the common characteristics of the Bachaur breed?",
+        "output": "Bachaur cattle are known for their disease resistance and are used for draft purposes in Bihar."
+      },
+      {
+        "text_input": "Where does the Red Sindhi breed originate?",
+        "output": "The Red Sindhi breed originates from Sindh, Pakistan."
+      },
+      {
+        "text_input": "What is the milk yield of the Malnad Gidda breed?",
+        "output": "The Malnad Gidda breed produces about 2-4 liters of milk per day."
+      },
+      {
+        "text_input": "What are the physical characteristics of the Pulikulam breed?",
+        "output": "Pulikulam cattle have a sturdy build and are usually light grey in color."
+      },
+      {
+        "text_input": "What disease commonly affects Punganur cattle?",
+        "output": "Punganur cattle can suffer from bloat, which is treated by relieving gas pressure and managing their diet."
+      },
+      {
+        "text_input": "What is the primary use of the Kosali breed?",
+        "output": "The Kosali breed is primarily used for draft work in Chhattisgarh."
+      },
+      {
+        "text_input": "What are the unique characteristics of the Motu breed?",
+        "output": "The Motu breed is small-sized and well-suited for hilly and forested areas."
+      },
+      {
+        "text_input": "How much milk does the Binjharpuri breed produce on average?",
+        "output": "The Binjharpuri breed produces around 5-8 liters of milk per day."
+      },
+      {
+        "text_input": "Which breed is known for its disease resistance and small size?",
+        "output": "The Vechur breed is known for its disease resistance and small size."
+      },
+      {
+        "text_input": "Where is the Umblachery breed predominantly found?",
+        "output": "The Umblachery breed is predominantly found in Tamil Nadu, India."
+      },
+      {
+        "text_input": "What are the characteristics of the Ponwar breed?",
+        "output": "The Ponwar breed is known for its strength and is primarily used for draft work in rice paddies."
+      },
+      {
+        "text_input": "What is the common disease found in Gaolao cattle, and how is it treated?",
+        "output": "Gaolao cattle are prone to mastitis, which is treated with antibiotics and proper milking hygiene."
+      },
+      {
+        "text_input": "What is the origin of the Kherigarh breed?",
+        "output": "The Kherigarh breed originates from Uttar Pradesh, India."
+      },
+      {
+        "text_input": "Which breed is known for its adaptability to extreme climatic conditions?",
+        "output": "The Tharparkar breed is known for its adaptability to extreme climatic conditions."
+      },
+      {
+        "text_input": "What is the milk yield of the Siri breed?",
+        "output": "The Siri breed produces around 4-6 liters of milk per day."
+      },
+      {
+        "text_input": "What are the physical characteristics of the Lakhimi breed?",
+        "output": "The Lakhimi breed has a medium-sized body with a light grey coat."
+      },
+      {
+        "text_input": "What is the common use of the Dangi breed?",
+        "output": "The Dangi breed is used for draft work in rugged terrains."
+      },
+      {
+        "text_input": "What is the primary use of the Ladakhi breed?",
+        "output": "The Ladakhi breed is primarily used for draft work and milk production in high-altitude areas."
+      },
+      {
+        "text_input": "What disease is common in Deoni cattle, and how is it treated?",
+        "output": "Deoni cattle are prone to respiratory infections, which are treated with antibiotics and proper ventilation."
+      },
+      {
+        "text_input": "Which breed is known for its high milk yield and adaptability to various climates?",
+        "output": "The Sahiwal breed is known for its high milk yield and adaptability to various climates."
+      },
+      {
+        "text_input": "What is the origin of the Hallikar breed?",
+        "output": "The Hallikar breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "How much milk does the Gir breed produce daily?",
+        "output": "The Gir breed produces about 12-15 liters of milk per day."
+      },
+      {
+        "text_input": "What is the common disease in Sahiwal cows, and what is the treatment?",
+        "output": "Sahiwal cows are prone to mastitis, which is treated by ensuring proper milking hygiene and using antibiotics when needed."
+      },
+      {
+        "text_input": "What are the primary uses of the Nagori breed?",
+        "output": "The Nagori breed is primarily used for both draft work and milk production."
+      },
+      {
+        "text_input": "What is the average milk yield of the Amritmahal breed?",
+        "output": "The Amritmahal breed produces around 5-7 liters of milk per day."
+      },
+      {
+        "text_input": "What disease is common in the Kangayam breed?",
+        "output": "The Kangayam breed is prone to foot rot, which can be treated with proper hoof care and antiseptics."
+      },
+      {
+        "text_input": "What is the primary use of the Red Sindhi breed?",
+        "output": "The Red Sindhi breed is primarily used for milk production."
+      },
+      {
+        "text_input": "What are the distinctive characteristics of the Vechur breed?",
+        "output": "The Vechur breed is known for its small size, high milk fat content, and disease resistance."
+      },
+      {
+        "text_input": "Where does the Bargur breed originate?",
+        "output": "The Bargur breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What is the primary use of the Gaolao breed?",
+        "output": "The Gaolao breed is used for both draft work and milk production."
+      }
+
+  ]
+  

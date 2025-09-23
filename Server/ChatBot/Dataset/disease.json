@@ -1,0 +1,562 @@
+[
+    {
+        "text_input": "What is the common cause of mastitis in cows?",
+        "output": "Mastitis is commonly caused by bacterial infections, typically through improper milking hygiene."
+      },
+      {
+        "text_input": "How can foot-and-mouth disease in cows be prevented?",
+        "output": "Foot-and-mouth disease can be prevented by regular vaccination and proper sanitation practices."
+      },
+      {
+        "text_input": "What is the primary symptom of bloat in cows?",
+        "output": "The primary symptom of bloat in cows is a swollen left side of the abdomen due to excess gas."
+      },
+      {
+        "text_input": "Which disease in cows is spread by ticks and can lead to high fever?",
+        "output": "Anaplasmosis is spread by ticks and can cause high fever in cows."
+      },
+      {
+        "text_input": "What is the treatment for cows suffering from ketosis?",
+        "output": "Cows suffering from ketosis are treated by administering glucose or propylene glycol to restore energy balance."
+      },
+      {
+        "text_input": "How can cows be protected from brucellosis?",
+        "output": "Cows can be protected from brucellosis through vaccination and by avoiding contact with infected animals."
+      },
+      {
+        "text_input": "What is the main sign of pneumonia in calves?",
+        "output": "The main sign of pneumonia in calves is labored breathing and coughing."
+      },
+      {
+        "text_input": "What causes blackleg in cows, and how can it be prevented?",
+        "output": "Blackleg is caused by the bacteria *Clostridium chauvoei* and can be prevented through vaccination."
+      },
+      {
+        "text_input": "What is the common treatment for foot rot in cows?",
+        "output": "Foot rot in cows is treated with antibiotics and proper hoof care."
+      },
+      {
+        "text_input": "What disease causes cows to lose coordination and collapse?",
+        "output": "Milk fever, caused by low calcium levels, can cause cows to lose coordination and collapse."
+      },
+      {
+        "text_input": "Which disease in cows is caused by ingesting contaminated feed with spores?",
+        "output": "Botulism is caused by cows ingesting contaminated feed with *Clostridium botulinum* spores."
+      },
+      {
+        "text_input": "How is ringworm in cows treated?",
+        "output": "Ringworm in cows is treated with antifungal medications and proper sanitation of the environment."
+      },
+      {
+        "text_input": "What is a common parasitic disease in cows that causes anemia?",
+        "output": "Babesiosis, spread by ticks, is a parasitic disease that causes anemia in cows."
+      },
+      {
+        "text_input": "How can milk fever in cows be prevented?",
+        "output": "Milk fever can be prevented by ensuring cows have sufficient calcium intake before and after calving."
+      },
+      {
+        "text_input": "What is the primary sign of cow pox in cattle?",
+        "output": "The primary sign of cowpox is the appearance of pustules on the udder and teats."
+      },
+      {
+        "text_input": "What causes bovine viral diarrhea (BVD) in cows?",
+        "output": "Bovine viral diarrhea is caused by the BVD virus and can be spread through contact with infected animals."
+      },
+      {
+        "text_input": "How can lumpy skin disease in cows be controlled?",
+        "output": "Lumpy skin disease can be controlled through vaccination and isolation of infected animals."
+      },
+      {
+        "text_input": "What is the most effective treatment for cows affected by indigestion?",
+        "output": "Indigestion in cows can be treated by adjusting the diet and administering antacids or mineral oil."
+      },
+      {
+        "text_input": "Which disease in cows causes excessive salivation and blisters around the mouth?",
+        "output": "Foot-and-mouth disease causes excessive salivation and blisters around the mouth in cows."
+      },
+      {
+        "text_input": "How can tuberculosis in cows be diagnosed?",
+        "output": "Tuberculosis in cows is diagnosed through a tuberculin skin test or blood tests."
+      },
+      {
+        "text_input": "What disease causes a cow to have a sudden drop in milk production?",
+        "output": "Mastitis often causes a sudden drop in milk production in cows."
+      },
+      {
+        "text_input": "What is the common cure for bloat in cows?",
+        "output": "Bloat in cows is commonly treated by releasing the gas buildup through a stomach tube or puncturing the rumen."
+      },
+      {
+        "text_input": "What are the signs of Johne’s disease in cows?",
+        "output": "The signs of Johne’s disease include weight loss, diarrhea, and reduced milk production."
+      },
+      {
+        "text_input": "How can pinkeye in cows be treated?",
+        "output": "Pinkeye in cows is treated with antibiotics and by keeping the cow in a shaded area."
+      },
+      {
+        "text_input": "What is the primary cause of parasitic gastroenteritis in cows?",
+        "output": "Parasitic gastroenteritis in cows is caused by a heavy load of stomach worms."
+      },
+      {
+        "text_input": "What is a common symptom of leptospirosis in cows?",
+        "output": "A common symptom of leptospirosis in cows is abortion in pregnant cows."
+      },
+      {
+        "text_input": "How is anthrax in cows prevented?",
+        "output": "Anthrax in cows is prevented through vaccination and avoiding contact with contaminated soil or feed."
+      },
+      {
+        "text_input": "What causes cows to experience lameness and swelling in the foot?",
+        "output": "Foot rot causes cows to experience lameness and swelling in the foot."
+      },
+      {
+        "text_input": "How is metritis in cows treated?",
+        "output": "Metritis in cows is treated with antibiotics and proper uterine care post-calving."
+      },
+      {
+        "text_input": "Which disease in cows is transmitted by insects and causes fever and skin lesions?",
+        "output": "Lumpy skin disease is transmitted by insects and causes fever and skin lesions in cows."
+      },
+      {
+        "text_input": "What is the most common treatment for tick infestation in cows?",
+        "output": "Tick infestations in cows are commonly treated with acaricides and regular grooming."
+      },
+      {
+        "text_input": "What is the main symptom of Johne’s disease in cows?",
+        "output": "Chronic diarrhea is the main symptom of Johne’s disease in cows."
+      },
+      {
+        "text_input": "What is the treatment for milk fever in cows?",
+        "output": "Milk fever is treated by administering calcium intravenously."
+      },
+      {
+        "text_input": "What causes swollen joints and lameness in cows?",
+        "output": "Arthritis or joint infections can cause swollen joints and lameness in cows."
+      },
+      {
+        "text_input": "What is the primary symptom of brucellosis in cows?",
+        "output": "The primary symptom of brucellosis in cows is abortion in the later stages of pregnancy."
+      },
+      {
+        "text_input": "How is a cow diagnosed with rabies?",
+        "output": "Rabies in cows is diagnosed by observing neurological symptoms and confirming through laboratory tests after death."
+      },
+      {
+        "text_input": "What disease in cows leads to sudden death and swelling of the body?",
+        "output": "Anthrax can lead to sudden death and swelling of the body in cows."
+      },
+      {
+        "text_input": "What is the treatment for ringworm in cows?",
+        "output": "Ringworm is treated with antifungal medications and cleaning the infected areas."
+      },
+      {
+        "text_input": "Which disease is commonly associated with retained placenta in cows?",
+        "output": "Metritis is commonly associated with retained placenta in cows."
+      },
+      {
+        "text_input": "How can cows be protected from blackleg disease?",
+        "output": "Cows can be protected from blackleg disease through vaccination."
+      },
+      {
+        "text_input": "What is a common sign of ketosis in dairy cows?",
+        "output": "A common sign of ketosis in dairy cows is a sweet smell on the cow’s breath due to acetone production."
+      },
+      {
+        "text_input": "How is anaplasmosis in cows treated?",
+        "output": "Anaplasmosis is treated with antibiotics such as tetracycline."
+      },
+      {
+        "text_input": "What are the common signs of digestive disorders in cows?",
+        "output": "Common signs of digestive disorders in cows include bloating, diarrhea, and reduced appetite."
+      },
+      {
+        "text_input": "How can foot-and-mouth disease be controlled in cows?",
+        "output": "Foot-and-mouth disease can be controlled through vaccination, quarantine, and improved biosecurity measures."
+      },
+      {
+        "text_input": "What causes sudden weight loss in cows affected by Johne’s disease?",
+        "output": "Johne’s disease affects the intestines, leading to malnutrition and sudden weight loss in cows."
+      },
+      {
+        "text_input": "What is the treatment for a cow with pneumonia?",
+        "output": "Pneumonia in cows is treated with antibiotics and anti-inflammatory drugs."
+      },
+      {
+        "text_input": "How can bloat be prevented in cows?",
+        "output": "Bloat can be prevented by feeding cows a balanced diet with roughage and avoiding sudden changes in feed."
+      },
+      {
+        "text_input": "What is the origin of the Khillari breed?",
+        "output": "The Khillari breed originates from Maharashtra, India."
+      },
+      {
+        "text_input": "What is the primary use of the Khillari breed?",
+        "output": "The Khillari breed is mainly used for draught work."
+      },
+      {
+        "text_input": "What is a distinguishing feature of the Khillari breed?",
+        "output": "Khillari cattle are known for their compact body and high endurance."
+      },
+      {
+        "text_input": "What is the origin of the Kangayam breed?",
+        "output": "The Kangayam breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What is the primary use of the Kangayam breed?",
+        "output": "The Kangayam breed is used for draught work and agriculture."
+      },
+      {
+        "text_input": "What is the origin of the Malvi breed?",
+        "output": "The Malvi breed originates from Madhya Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Malvi breed?",
+        "output": "The Malvi breed is used for draught work and plowing."
+      },
+      {
+        "text_input": "What is the origin of the Bargur breed?",
+        "output": "The Bargur breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What is the primary use of the Bargur breed?",
+        "output": "The Bargur breed is used for draught work in hilly terrains."
+      },
+      {
+        "text_input": "What is the origin of the Deoni breed?",
+        "output": "The Deoni breed originates from Maharashtra, India."
+      },
+      {
+        "text_input": "What is the primary use of the Deoni breed?",
+        "output": "The Deoni breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the origin of the Bachaur breed?",
+        "output": "The Bachaur breed originates from Bihar, India."
+      },
+      {
+        "text_input": "What is the primary use of the Bachaur breed?",
+        "output": "The Bachaur breed is used for draught work."
+      },
+      {
+        "text_input": "What is the origin of the Siri breed?",
+        "output": "The Siri breed originates from Sikkim and Bhutan."
+      },
+      {
+        "text_input": "What is the primary use of the Siri breed?",
+        "output": "The Siri breed is used for milk production and draught work."
+      },
+      {
+        "text_input": "What is the origin of the Dangi breed?",
+        "output": "The Dangi breed originates from Maharashtra, India."
+      },
+      {
+        "text_input": "What is the primary use of the Dangi breed?",
+        "output": "The Dangi breed is used for draught work in wet and hilly areas."
+      },
+      {
+        "text_input": "What is the origin of the Mewati breed?",
+        "output": "The Mewati breed originates from Rajasthan and Haryana, India."
+      },
+      {
+        "text_input": "What is the primary use of the Mewati breed?",
+        "output": "The Mewati breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the origin of the Kherigarh breed?",
+        "output": "The Kherigarh breed originates from Uttar Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Kherigarh breed?",
+        "output": "The Kherigarh breed is used for light draught work."
+      },
+      {
+        "text_input": "What is the origin of the Ponwar breed?",
+        "output": "The Ponwar breed originates from Uttar Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Ponwar breed?",
+        "output": "The Ponwar breed is used for draught work."
+      },
+      {
+        "text_input": "What is the origin of the Nari breed?",
+        "output": "The Nari breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Nari breed?",
+        "output": "The Nari breed is used for draught work."
+      },
+      {
+        "text_input": "What is the origin of the Nagori breed?",
+        "output": "The Nagori breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Nagori breed?",
+        "output": "The Nagori breed is used for agricultural work and cart pulling."
+      },
+      {
+        "text_input": "What is the origin of the Ladakhi breed?",
+        "output": "The Ladakhi breed originates from Ladakh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Ladakhi breed?",
+        "output": "The Ladakhi breed is used for milk production and transportation."
+      },
+      {
+        "text_input": "What is the origin of the Siri breed?",
+        "output": "The Siri breed originates from Bhutan and Sikkim."
+      },
+      {
+        "text_input": "What is a special characteristic of the Siri breed?",
+        "output": "The Siri breed has a hump that leans to one side."
+      },
+      {
+        "text_input": "What is the origin of the Manapari breed?",
+        "output": "The Manapari breed originates from Tamil Nadu, India."
+      },
+      {
+        "text_input": "What is the primary use of the Manapari breed?",
+        "output": "The Manapari breed is used for draught purposes."
+      },
+      {
+        "text_input": "What is the origin of the Hallikar breed?",
+        "output": "The Hallikar breed originates from Karnataka, India."
+      },
+      {
+        "text_input": "What is the distinguishing feature of the Hallikar breed?",
+        "output": "The Hallikar breed is known for its lean and muscular build."
+      },
+      {
+        "text_input": "What is the origin of the Purnea breed?",
+        "output": "The Purnea breed originates from Bihar, India."
+      },
+      {
+        "text_input": "What is the primary use of the Purnea breed?",
+        "output": "The Purnea breed is used for draught work."
+      },
+      {
+        "text_input": "What is the origin of the Rath breed?",
+        "output": "The Rath breed originates from Rajasthan, India."
+      },
+      {
+        "text_input": "What is the primary use of the Rath breed?",
+        "output": "The Rath breed is used for draught work."
+      },
+      {
+        "text_input": "What is the origin of the Goomsur breed?",
+        "output": "The Goomsur breed originates from Odisha, India."
+      },
+      {
+        "text_input": "What is the primary use of the Goomsur breed?",
+        "output": "The Goomsur breed is used for draught work in hilly terrains."
+      },
+      {
+        "text_input": "What is the origin of the Binjharpuri breed?",
+        "output": "The Binjharpuri breed originates from Odisha, India."
+      },
+      {
+        "text_input": "What is the primary use of the Binjharpuri breed?",
+        "output": "The Binjharpuri breed is used for both milk production and draught work."
+      },
+      {
+        "text_input": "What is the origin of the Gangatiri breed?",
+        "output": "The Gangatiri breed originates from Uttar Pradesh, India."
+      },
+      {
+        "text_input": "What is the primary use of the Gangatiri breed?",
+        "output": "The Gangatiri breed is used for milk production and draught work."
+      },
+      {
+        "text_input": "What is the main transmission route for tuberculosis in cows?",
+        "output": "Tuberculosis in cows is mainly transmitted through respiratory droplets from infected cattle."
+      },
+      {
+        "text_input": "Which disease in cows causes reproductive failure and abortions?",
+        "output": "Brucellosis is a disease that causes reproductive failure and abortions in cows."
+      },
+      {
+        "text_input": "How is mastitis in cows commonly diagnosed?",
+        "output": "Mastitis is commonly diagnosed by examining milk for clots, swelling in the udder, and using a somatic cell count (SCC) test."
+      },
+      {
+        "text_input": "What causes grass tetany in cows?",
+        "output": "Grass tetany is caused by a magnesium deficiency, often from grazing on lush pastures low in magnesium."
+      },
+      {
+        "text_input": "Which disease in cows leads to sudden muscle paralysis?",
+        "output": "Botulism causes sudden muscle paralysis in cows due to a toxin produced by *Clostridium botulinum*."
+      },
+      {
+        "text_input": "What is the treatment for retained placenta in cows?",
+        "output": "Retained placenta in cows is treated by manual removal or the use of uterine antibiotics."
+      },
+      {
+        "text_input": "How is foot-and-mouth disease spread among cows?",
+        "output": "Foot-and-mouth disease is spread through direct contact, contaminated feed, or airborne transmission."
+      },
+      {
+        "text_input": "What is the most effective prevention method for tuberculosis in cows?",
+        "output": "The most effective prevention method for tuberculosis is testing and culling infected animals."
+      },
+      {
+        "text_input": "Which disease is known to cause ulcers in the mouths of cows?",
+        "output": "Bovine viral diarrhea (BVD) causes ulcers in the mouths of cows."
+      },
+      {
+        "text_input": "How can cows be protected from tick-borne diseases?",
+        "output": "Cows can be protected from tick-borne diseases by regular tick control measures and using acaricides."
+      },
+      {
+        "text_input": "What is a common sign of internal parasites in cows?",
+        "output": "A common sign of internal parasites in cows is weight loss and diarrhea."
+      },
+      {
+        "text_input": "What causes blue tongue disease in cows?",
+        "output": "Blue tongue disease is caused by a virus spread by biting midges."
+      },
+      {
+        "text_input": "What is the most common cause of calf scours (diarrhea)?",
+        "output": "Calf scours are most commonly caused by bacterial infections, viral infections, or poor hygiene."
+      },
+      {
+        "text_input": "How is bovine respiratory disease (BRD) treated in cows?",
+        "output": "Bovine respiratory disease (BRD) is treated with antibiotics and supportive care such as anti-inflammatory drugs."
+      },
+      {
+        "text_input": "What causes a cow's hair to fall out in patches?",
+        "output": "Hair loss in patches in cows is often caused by ringworm or parasitic infestations like lice."
+      },
+      {
+        "text_input": "How can cows be protected from milk fever?",
+        "output": "Cows can be protected from milk fever by managing calcium intake during the dry period and early lactation."
+      },
+      {
+        "text_input": "What is the common cause of ketosis in dairy cows?",
+        "output": "Ketosis is caused by a negative energy balance in dairy cows, often during early lactation."
+      },
+      {
+        "text_input": "How is the spread of mastitis prevented in dairy cows?",
+        "output": "Mastitis spread is prevented by maintaining good milking hygiene, using clean equipment, and regular teat disinfection."
+      },
+      {
+        "text_input": "What is a common symptom of Johne's disease in cows?",
+        "output": "Chronic diarrhea and weight loss are common symptoms of Johne's disease in cows."
+      },
+      {
+        "text_input": "Which disease in cows is associated with grazing on lush, immature pasture?",
+        "output": "Grass tetany is associated with cows grazing on lush, immature pasture low in magnesium."
+      },
+      {
+        "text_input": "How is bloat treated in cows?",
+        "output": "Bloat is treated by releasing gas from the rumen using a stomach tube or a trocar to relieve pressure."
+      },
+      {
+        "text_input": "Which disease causes swollen joints and lameness in cows?",
+        "output": "Joint infections or foot rot can cause swollen joints and lameness in cows."
+      },
+      {
+        "text_input": "What is the best way to control ringworm in cows?",
+        "output": "Ringworm in cows is controlled by antifungal treatments and improving hygiene to prevent spread."
+      },
+      {
+        "text_input": "How can anaplasmosis in cows be prevented?",
+        "output": "Anaplasmosis in cows can be prevented by controlling ticks and using vaccines in endemic areas."
+      },
+      {
+        "text_input": "What causes udder sores in cows?",
+        "output": "Udder sores in cows can be caused by poor milking hygiene, trauma, or bacterial infections like staphylococcal mastitis."
+      },
+      {
+        "text_input": "How is bovine leukosis spread among cows?",
+        "output": "Bovine leukosis is spread through the transfer of infected blood, often via equipment or biting insects."
+      },
+      {
+        "text_input": "What disease in cows is caused by a deficiency in calcium?",
+        "output": "Milk fever is caused by a deficiency in calcium, especially around the time of calving."
+      },
+      {
+        "text_input": "Which disease in cows is commonly spread through ingestion of contaminated feed?",
+        "output": "Botulism is commonly spread through ingestion of feed contaminated with *Clostridium botulinum* spores."
+      },
+      {
+        "text_input": "What is the common cause of foot rot in cows?",
+        "output": "Foot rot in cows is commonly caused by bacterial infections in moist, unhygienic conditions."
+      },
+      {
+        "text_input": "How is brucellosis in cows controlled?",
+        "output": "Brucellosis is controlled through vaccination and culling infected animals to prevent transmission."
+      },
+      {
+        "text_input": "What is the common cause of lameness in dairy cows?",
+        "output": "Lameness in dairy cows is often caused by foot rot, sole ulcers, or digital dermatitis."
+      },
+      {
+        "text_input": "How is calf pneumonia treated?",
+        "output": "Calf pneumonia is treated with antibiotics, anti-inflammatory drugs, and improving ventilation."
+      },
+      {
+        "text_input": "Which disease causes high fever, nasal discharge, and lesions on the cow's tongue?",
+        "output": "Blue tongue disease causes high fever, nasal discharge, and lesions on the tongue in cows."
+      },
+      {
+        "text_input": "What is a common symptom of Babesiosis in cows?",
+        "output": "A common symptom of Babesiosis in cows is anemia, high fever, and jaundice."
+      },
+      {
+        "text_input": "How is bloat in cows prevented?",
+        "output": "Bloat can be prevented by providing roughage, avoiding sudden changes in diet, and managing pasture grazing."
+      },
+      {
+        "text_input": "Which bacterial infection leads to abortions in pregnant cows?",
+        "output": "Brucellosis is a bacterial infection that commonly leads to abortions in pregnant cows."
+      },
+      {
+        "text_input": "What causes a sudden drop in milk production in cows?",
+        "output": "A sudden drop in milk production in cows is often caused by mastitis or stress."
+      },
+      {
+        "text_input": "Which disease causes excessive tearing and discharge from the eyes in cows?",
+        "output": "Pinkeye causes excessive tearing and discharge from the eyes in cows."
+      },
+      {
+        "text_input": "What is the cause of contagious foot rot in cows?",
+        "output": "Contagious foot rot is caused by a bacterial infection, often due to poor hoof care and moist conditions."
+      },
+      {
+        "text_input": "How is blackleg in cows prevented?",
+        "output": "Blackleg is prevented through vaccination, especially in areas where the bacteria *Clostridium chauvoei* is prevalent."
+      },
+      {
+        "text_input": "Which disease in cows is characterized by sudden onset of fever and frothing at the mouth?",
+        "output": "Foot-and-mouth disease is characterized by fever and frothing at the mouth in cows."
+      },
+      {
+        "text_input": "What is the common cure for ketosis in dairy cows?",
+        "output": "Ketosis in dairy cows is treated by administering glucose or propylene glycol to increase energy levels."
+      },
+      {
+        "text_input": "Which disease in cows causes swelling and painful udders?",
+        "output": "Mastitis causes swelling and painful udders in cows."
+      },
+      {
+        "text_input": "What causes bottle jaw in cows?",
+        "output": "Bottle jaw in cows is caused by parasitic infections like Haemonchosis, leading to fluid accumulation under the jaw."
+      },
+      {
+        "text_input": "How is cowpox transmitted between cows?",
+        "output": "Cowpox is transmitted through direct contact with infected animals or contaminated surfaces."
+      },
+      {
+        "text_input": "Which disease in cows leads to sudden severe lameness and swelling in the hoof?",
+        "output": "Foot rot leads to sudden severe lameness and swelling in the hoof in cows."
+      },
+      {
+        "text_input": "What is the primary cause of neonatal calf diarrhea?",
+        "output": "The primary cause of neonatal calf diarrhea is bacterial infections, especially *Escherichia coli*."
+      },
+      {
+        "text_input": "How can bovine tuberculosis be prevented in cows?",
+        "output": "Bovine tuberculosis can be prevented by regular testing, culling infected animals, and biosecurity measures."
+      }
+]
