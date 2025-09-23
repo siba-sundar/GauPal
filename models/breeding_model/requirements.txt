@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn==1.6.1
+pydantic
+joblib
+python-multipart
+aiofiles
+typing-extensions
