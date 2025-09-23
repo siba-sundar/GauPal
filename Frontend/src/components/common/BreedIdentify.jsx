@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function CowBreedIdentifier() {
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState(null)
-  const [error, setError] = useState(null)
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
 
+  // Map of class IDs to breed names
   const breedMap = {
     0: "Alambadi", 1: "Amritmahal", 2: "Ayrshire", 3: "Banni",
     4: "Bargur", 5: "Bhadawari", 6: "Brown_Swiss", 7: "Dangi",
@@ -20,105 +21,124 @@ export default function CowBreedIdentifier() {
     31: "Pulikulam", 32: "Rathi", 33: "Red_Dane", 34: "Red_Sindhi",
     35: "Sahiwal", 36: "Surti", 37: "Tharparkar", 38: "Toda",
     39: "Umblachery", 40: "Vechur"
-  }
+  };
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0]
-    setError(null)
-    setResults(null)
+    const selectedFile = e.target.files[0];
+    setError(null);
+    setResults(null);
 
     if (!selectedFile) {
-      setFile(null)
-      setPreview(null)
-      return
+      setFile(null);
+      setPreview(null);
+      return;
     }
 
-    const validTypes = ['image/jpeg', 'image/png', 'image/jpg']
-    const fileExtension = selectedFile.name.split('.').pop().toLowerCase()
-    const validExtensions = ['jpg', 'jpeg', 'png']
+    // Validate file type - check both MIME type and extension
+    const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
+    const validExtensions = ['jpg', 'jpeg', 'png'];
 
     if (!validTypes.includes(selectedFile.type) || !validExtensions.includes(fileExtension)) {
-      setError('Please select a valid image file (JPG, JPEG, or PNG)')
-      setFile(null)
-      setPreview(null)
-      e.target.value = ''
-      return
+      setError('Please select a valid image file (JPG, JPEG, or PNG)');
+      setFile(null);
+      setPreview(null);
+      e.target.value = ''; // Reset the file input
+      return;
     }
 
-    const maxSize = 5 * 1024 * 1024
+    // Validate file size (optional - 5MB limit)
+    const maxSize = 5 * 1024 * 1024; // 5MB
     if (selectedFile.size > maxSize) {
-      setError('Image size should be less than 5MB')
-      setFile(null)
-      setPreview(null)
-      e.target.value = ''
-      return
+      setError('Image size should be less than 5MB');
+      setFile(null);
+      setPreview(null);
+      e.target.value = ''; // Reset the file input
+      return;
     }
 
-    setFile(selectedFile)
+    setFile(selectedFile);
 
-    const reader = new FileReader()
-    reader.onload = () => setPreview(reader.result)
-    reader.readAsDataURL(selectedFile)
-  }
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     if (!file) {
-      setError('Please select an image first')
-      return
+      setError('Please select an image first');
+      return;
     }
 
-    setLoading(true)
-    setError(null)
-    setResults(null)
+    setLoading(true);
+    setError(null);
+    setResults(null);
 
     try {
-      const formData = new FormData()
-      formData.append('file', file)
+      const formData = new FormData();
+      formData.append('file', file);
 
-      const apiUrl = 'https://suggests-documentation-peak-speeds.trycloudflare.com/predict/'
+      // Ensure the URL is using HTTPS
+      let apiUrl = `${import.meta.env.VITE_IDENTIFY_BREED}/predict/`;
+      if (!apiUrl.startsWith('https://')) {
+        apiUrl = apiUrl.replace('http://', 'https://');
+      }
 
-      const response = await axios.post(apiUrl, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      })
 
-      const data = response.data
+      const response = await axios.post(
+        apiUrl,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
 
-      if (data.predictions) {
-        const processedResults = data.predictions
-          .map(item => ({
-            breed: breedMap[item.class_id] || 'Unknown breed',
-            confidence: (item.confidence * 100).toFixed(2),
-            class_id: item.class_id
-          }))
-          .sort((a, b) => b.confidence - a.confidence)
+      // Process results (axios already parses JSON)
+      const data = response.data;
 
-        setResults(processedResults)
+      // Process results
+      if (data.categories) {
+        const processedResults = data.categories.map(item => ({
+          breed: breedMap[item.class_id] || 'Unknown breed',
+          confidence: (item.confidence * 100).toFixed(2),
+          class_id: item.class_id
+        }));
+        setResults(processedResults);
       }
     } catch (err) {
-      setError(`Failed to identify breed: ${err.response?.data?.message || err.message}`)
+      setError(`Failed to identify breed: ${err.response?.data?.message || err.message}`);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const getBadgeColor = (confidence) => {
-    const conf = parseFloat(confidence)
-    if (conf >= 70) return 'bg-green-600'
-    if (conf >= 40) return 'bg-green-500'
-    return 'bg-green-400'
-  }
+    const conf = parseFloat(confidence);
+    if (conf >= 70) return 'bg-green-600';
+    if (conf >= 40) return 'bg-green-500';
+    return 'bg-green-400';
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-3xl font-bold text-green-800 mb-6 text-center">Cow Breed Identifier</h1>
 
       <div className="grid md:grid-cols-2 gap-8">
+        {/* Left column - Upload */}
         <div className="space-y-6">
           <div className="border-2 border-dashed border-green-300 rounded-lg p-6 flex flex-col items-center justify-center bg-green-50">
             <form onSubmit={handleSubmit} className="w-full">
               <div className="mb-4">
-                <label className="block text-green-700 font-medium mb-2">Upload Cow Image</label>
+                <label className="block text-green-700 font-medium mb-2">
+                  Upload Cow Image
+                </label>
                 <input
                   type="file"
                   onChange={handleFileChange}
@@ -147,6 +167,7 @@ export default function CowBreedIdentifier() {
           )}
         </div>
 
+        {/* Right column - Results */}
         <div className="border border-gray-200 rounded-lg p-6 bg-white">
           <h2 className="text-xl font-medium text-green-700 mb-4">Identification Results</h2>
 
@@ -157,7 +178,9 @@ export default function CowBreedIdentifier() {
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">{error}</div>
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
+              {error}
+            </div>
           )}
 
           {results && results.length > 0 && (
@@ -170,22 +193,22 @@ export default function CowBreedIdentifier() {
                 </div>
               </div>
 
-              {results.length > 1 && (
-                <div>
-                  <h3 className="text-md font-medium text-green-700 mb-2">Other possibilities:</h3>
-                  <ul className="space-y-2">
-                    {results.slice(1).map((result, index) => (
-                      <li key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded border border-gray-100">
-                        <span className="font-medium">{result.breed}</span>
-                        <span className="text-sm text-gray-600">{result.confidence}%</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <div>
+                <h3 className="text-md font-medium text-green-700 mb-2">Other possibilities:</h3>
+                <ul className="space-y-2">
+                  {results.slice(1).map((result, index) => (
+                    <li key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded border border-gray-100">
+                      <span className="font-medium">{result.breed}</span>
+                      <span className="text-sm text-gray-600">{result.confidence}%</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               {results.some(r => r.breed === 'Unknown breed') && (
-                <div className="text-sm text-gray-600 mt-2">Some breeds could not be identified from our database.</div>
+                <div className="text-sm text-gray-600 mt-2">
+                  Some breeds could not be identified from our database.
+                </div>
               )}
             </div>
           )}
@@ -202,5 +225,5 @@ export default function CowBreedIdentifier() {
         This tool identifies cow breeds from 41 different categories with varying levels of confidence
       </div>
     </div>
-  )
+  );
 }

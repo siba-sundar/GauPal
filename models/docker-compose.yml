@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  disease-qna:
+    build:
+      context: ./disease-qna
+    container_name: disease-qna
+    ports:
+      - "8070:8070"
+    restart: unless-stopped
+
+  disease-identify:
+    build:
+      context: ./disease_identify
+    container_name: disease-identify
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

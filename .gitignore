@@ -32,4 +32,8 @@ temp/
 googleCloud-serviceAccountKey.json
 serviceAccountKey.json
 model/
-models/
+Dataset/
+MatchFound.xlsx
+cow_health_dataset2/
+uploads/
+*.h5
