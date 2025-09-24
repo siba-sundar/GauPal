@@ -322,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 * Firebase for backend services
 * The open-source community for various libraries and tools used in this project
 
-<p float="left">
+<!-- <p float="left">
   <img src="./assets/gaupal1.png" width="45%" />
   <img src="./assets/gaupal2.png" width="45%" />
 </p>
@@ -330,14 +330,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <p float="left">
   <img src="./assets/gaupal3.png" width="45%" />
   <img src="./assets/gaupal4.png" width="45%" />
-</p>
-
-<p float="left">
-  <img src="./assets/gaupal5.png" width="100%" />
-</p>
+</p> -->
 
 Empowering farmers. Preserving heritage. Promoting sustainability.
 
-> GauPal: The smart way to care for India's native cows. 🐄
+> Gaupal: The smart way to care for India's native cows. 🐄
 
 © 2025 APX Nova. All rights reserved.
