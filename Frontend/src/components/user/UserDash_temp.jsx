@@ -18,7 +18,7 @@ const UserDashboard = () => {
     const [productFilters, setProductFilters] = useState({
         category: 'Dairy',
         organic: null,
-        searchQuery: '' // Added missing searchQuery
+        searchQuery: ''
     });
     const [topSellers, setTopSellers] = useState([
         { id: 1, name: 'Anand Organic Farm', location: 'Mathura, UP', rating: 4.8, products: 24, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgxB0ZxPF-NmTpt15r5w_x7wK181a51BfOyA&s' },
@@ -37,7 +37,6 @@ const UserDashboard = () => {
     const safeStringify = (obj) => {
         if (obj === null || obj === undefined) return 'N/A';
         if (typeof obj === 'object') {
-            // If it's an object with address or coordinates, try to extract meaningful info
             if (obj.address) return obj.address.toString();
             if (obj.coordinates) return `Lat: ${obj.coordinates.lat}, Lng: ${obj.coordinates.lng}`;
             return JSON.stringify(obj);
@@ -49,19 +48,15 @@ const UserDashboard = () => {
     const sanitizeProductData = (product) => {
         return {
             ...product,
-            // Convert timestamps to readable dates if needed
             harvestDate: product.harvestDate
                 ? new Date(product.harvestDate._seconds * 1000).toLocaleDateString()
                 : 'N/A',
             expiryDate: product.expiryDate
                 ? new Date(product.expiryDate._seconds * 1000).toLocaleDateString()
                 : 'N/A',
-            // Ensure images is always an array
             images: product.images && product.images.length > 0
                 ? product.images
-                : ['/default-product-image.png'], // Add a default image path
-
-            // Safely handle any potential nested objects
+                : ['/default-product-image.png'],
             location: safeStringify(product.location),
             address: safeStringify(product.address),
             coordinates: safeStringify(product.coordinates)
@@ -95,10 +90,8 @@ const UserDashboard = () => {
 
                 const { products } = response.data;
 
-                // Sanitize products
                 const sanitizedProducts = products.map(sanitizeProductData);
 
-                // Apply search filter client-side
                 const searchFilteredProducts = sanitizedProducts.filter(product =>
                     product.name.toLowerCase().includes(productFilters.searchQuery.toLowerCase()) ||
                     (product.description && product.description.toLowerCase().includes(productFilters.searchQuery.toLowerCase()))
@@ -205,7 +198,6 @@ const UserDashboard = () => {
         );
     }
 
-
     const toggleChat = () => {
         setIsChatMinimized(!isChatMinimized);
     };
@@ -223,7 +215,6 @@ const UserDashboard = () => {
         return (
             <>
                 <UserDashboard />
-
             </>
         );
     }
@@ -345,37 +336,49 @@ const UserDashboard = () => {
                             <div className="flex justify-between items-center mb-6">
                                 <h2 className="text-2xl font-bold text-gray-800">Featured Cow Breeds</h2>
                                 <Link to="/buyer/breed" className="text-sm text-green-600 hover:text-green-700 font-medium flex items-center">
-
                                     View All Breeds <ChevronRight size={16} className="ml-1" />
                                 </Link>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                {featuredBreeds.map((breed) => (
-                                    <div
-                                        key={breed.id}
-                                        className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
-                                    >
-                                        <div className="h-32 bg-gray-200">
-                                            <img
-                                                src={breed.introduction.image.url}
-                                                alt={breed.breed}
-                                                className="w-full h-full object-cover"
-                                            />
+                                {featuredBreeds && featuredBreeds.length > 0 ? (
+                                    featuredBreeds.map((breed) => (
+                                        <div
+                                            key={breed.id}
+                                            className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300"
+                                        >
+                                            <div className="h-32 bg-gray-200">
+                                                <img
+                                                    src={breed?.introduction?.image?.url || 'https://via.placeholder.com/400x300?text=Cow+Breed'}
+                                                    alt={breed?.breed || 'Cow Breed'}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        e.target.src = 'https://via.placeholder.com/400x300?text=Cow+Breed';
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="p-4">
+                                                <h3 className="font-medium text-gray-800 mb-1 capitalize">
+                                                    {breed?.breed || 'Unknown Breed'}
+                                                </h3>
+                                                <p className="text-gray-500 text-sm mb-2">
+                                                    {breed?.introduction?.content 
+                                                        ? `${breed.introduction.content.slice(0, 100)}...` 
+                                                        : 'Learn more about this indigenous cow breed.'}
+                                                </p>
+                                                <button
+                                                    onClick={() => handleLearnMore(breed)}
+                                                    className="w-full mt-3 bg-green-50 text-green-600 font-medium py-2 rounded-md hover:bg-green-100 transition-colors duration-300 flex items-center justify-center"
+                                                >
+                                                    <Info size={16} className="mr-2" /> Learn More
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="p-4">
-                                            <h3 className="font-medium text-gray-800 mb-1 capitalize">{breed.breed}</h3>
-                                            <p className="text-gray-500 text-sm mb-2">
-                                                {breed.introduction.content.slice(0, 100)}...
-                                            </p>
-                                            <button
-                                                onClick={() => handleLearnMore(breed)}
-                                                className="w-full mt-3 bg-green-50 text-green-600 font-medium py-2 rounded-md hover:bg-green-100 transition-colors duration-300 flex items-center justify-center"
-                                            >
-                                                <Info size={16} className="mr-2" /> Learn More
-                                            </button>
-                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="col-span-full text-center text-gray-500 py-8">
+                                        No featured breeds available at the moment
                                     </div>
-                                ))}
+                                )}
                             </div>
                         </div>
 
@@ -431,23 +434,36 @@ const UserDashboard = () => {
                             </Link>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {articles.map((article) => (
-                                <div key={article.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col md:flex-row">
-                                    <div className="md:w-1/3 h-48 md:h-auto bg-gray-200">
-                                        <img src={article.introduction.image.url} alt={article.title} className="w-full h-full object-cover" />
+                            {articles && articles.length > 0 ? (
+                                articles.map((article) => (
+                                    <div key={article.id} className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col md:flex-row">
+                                        <div className="md:w-1/3 h-48 md:h-auto bg-gray-200">
+                                            <img 
+                                                src={article?.introduction?.image?.url || 'https://via.placeholder.com/400x300?text=Article'} 
+                                                alt={article?.title || 'Article'} 
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    e.target.src = 'https://via.placeholder.com/400x300?text=Article';
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="p-4 md:w-2/3">
+                                            <h3 className="font-medium text-gray-800 mb-2">{article?.title || 'Untitled Article'}</h3>
+                                            <p className="text-gray-600 text-sm mb-4">{article?.summary || 'No summary available'}</p>
+                                            <Link
+                                                to={`/article/${article?.slug || ''}`}
+                                                className="text-green-600 font-medium text-sm hover:text-green-700 flex items-center"
+                                            >
+                                                Read More <ChevronRight size={16} className="ml-1" />
+                                            </Link>
+                                        </div>
                                     </div>
-                                    <div className="p-4 md:w-2/3">
-                                        <h3 className="font-medium text-gray-800 mb-2">{article.title}</h3>
-                                        <p className="text-gray-600 text-sm mb-4">{article.summary}</p>
-                                        <Link
-                                            to={`/article/${article.slug}`}
-                                            className="text-green-600 font-medium text-sm hover:text-green-700 flex items-center"
-                                        >
-                                            Read More <ChevronRight size={16} className="ml-1" />
-                                        </Link>
-                                    </div>
+                                ))
+                            ) : (
+                                <div className="col-span-full text-center text-gray-500 py-8">
+                                    No articles available at the moment
                                 </div>
-                            ))}
+                            )}
                         </div>
                     </div>
 
@@ -588,7 +604,7 @@ const UserDashboard = () => {
             </div>
 
             {/* Chatbot Widget */}
-            <div className="fixed bottom-4 right-4 z-50 ">
+            <div className="fixed bottom-4 right-4 z-50">
                 {isChatMinimized ? (
                     <div className="flex items-center space-x-2">
                         <button
@@ -612,7 +628,6 @@ const UserDashboard = () => {
                                 >
                                     <Minus size={20} />
                                 </button>
-
                             </div>
                         </div>
                         <div className="h-[80vh]">
